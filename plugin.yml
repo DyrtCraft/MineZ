@@ -1,0 +1,13 @@
+name: MineZ
+version: Development Build 001
+website: http://dyrtcraft.pl/
+author: TheMolkaPL
+description: Plugin stworzony specjalnie dla DyrtCraft Network!
+
+main: pl.dyrtcraft.minez.MineZ
+
+commands:
+    minez:
+        description: MineZ
+        aliases: [mz]
+        usage: /minez <pomoc|spawn>

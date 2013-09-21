@@ -1,10 +1,10 @@
 name: MineZ
-version: Development Build 002
+version: Development Build 003
 website: http://dyrtcraft.pl/
 author: TheMolkaPL
 description: Plugin stworzony specjalnie dla DyrtCraft Network!
 
-main: pl.dyrtcraft.minez.MineZ
+main: pl.themolka.minez.MineZ
 
 commands:
     minez:

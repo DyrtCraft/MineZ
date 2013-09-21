@@ -26,7 +26,7 @@ public class MineZCommand implements CommandExecutor {
 		
 		if(command.getName().equalsIgnoreCase("minez") || command.getName().equalsIgnoreCase("mz")) {
 			if(args.length==0) {
-				return erArg(player, "Nie podano zadnego argumentu!");
+				return pomocArg(player);
 			}
 			if(args.length==1) {
 				if(args[0].equalsIgnoreCase("admin") || args[0].equalsIgnoreCase("a")) {
@@ -124,7 +124,7 @@ public class MineZCommand implements CommandExecutor {
 	
 	protected boolean pomocArg(Player player) {
 		player.sendMessage(ChatColor.GOLD + "========== Pomoc ==========");
-		player.sendMessage(ChatColor.GRAY + "Witaj na serwerze MineZ DyrtCraft Netowrk!");
+		player.sendMessage(ChatColor.GRAY + "Witaj na serwerze MineZ DyrtCraft Network!");
 		player.sendMessage(ChatColor.GRAY + "Aby rozpoczac gre uzyj komendy /minez spawn!");
 		return true;
 	}

@@ -9,10 +9,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftPlugin;
+import pl.themolka.minez.listeners.PlayerJoinAndQuitListener;
 
 public class MineZCommand implements CommandExecutor {
 
 	MineZ plugin;
+	PlayerJoinAndQuitListener pjaql;
 	
 	public MineZCommand(MineZ mineZ) {
 		plugin = mineZ;
@@ -44,6 +46,9 @@ public class MineZCommand implements CommandExecutor {
 				}
 				if(args[0].equalsIgnoreCase("spawn")) {
 					return spawnArg(player);
+				}
+				if(args[0].equalsIgnoreCase("staff")) {
+					return staffArg(player);
 				} else {
 					return erArg(player, "Podano bledy argument!");
 				}
@@ -88,6 +93,7 @@ public class MineZCommand implements CommandExecutor {
 		player.sendMessage(ChatColor.RED + "/minez reload");
 		player.sendMessage(ChatColor.RED + "/minez setspawn <numer>");
 		player.sendMessage(ChatColor.RED + "/minez spawn [numer]");
+		player.sendMessage(ChatColor.RED + "/minez staff");
 		return true;
 	}
 	
@@ -170,6 +176,14 @@ public class MineZCommand implements CommandExecutor {
 			return true;
 		}
 		//TODO Randomowa teleportacja
+		return true;
+	}
+	
+	protected boolean staffArg(Player player) {
+		Object lista = pjaql.administracja_online.toArray();
+		
+		player.sendMessage(ChatColor.GOLD + "Lista administracji online:");
+		player.sendMessage(ChatColor.GRAY + lista.toString());
 		return true;
 	}
 	

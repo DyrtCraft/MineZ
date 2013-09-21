@@ -14,6 +14,10 @@ public class MineZ extends JavaPlugin {
 		if(!(getServer().getPluginManager().isPluginEnabled("DyrtCraftXP"))) {
 			getLogger().warning("Do pelnego dzialania tego pluginu potrzeby jest plugin DyrtCraftXP!");
 		}
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.CreatureSpawnListener(this), this);
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.Cuboid(this), this);
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.PlayerJoinAndQuitListener(this), this);
+		
 		getCommand("minez").setExecutor(new pl.themolka.minez.MineZCommand(this));
 		
 		saveDefaultConfig();

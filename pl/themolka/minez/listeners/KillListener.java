@@ -8,13 +8,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import pl.DyrtCraft.DyrtCraftXP.sql.Database;
+import pl.DyrtCraft.DyrtCraftXP.api.XP;
 import pl.themolka.minez.MineZ;
 
 public class KillListener implements Listener {
 
 	MineZ plugin;
-	Database xp;
 	
 	public KillListener(MineZ mineZ) {
 		plugin = mineZ;
@@ -30,9 +29,9 @@ public class KillListener implements Listener {
 				
 				if(e.getEntity().isDead()) {
 					if(MineZ.isDyrtCraftXPEnabled()) {
-						xp.addXp(damager, 5, "Zbito gracza " + entity.getName());
-						xp.delXp(entity, 5, "Smierc przez gracza " + damager.getName());
-						plugin.getServer().broadcastMessage(ChatColor.GRAY + entity.getName() + " (" + xp.getXp(entity) + ") zostal zabity przez " + damager.getName() + " (" + xp.getXp(damager) + ")");
+						XP.addXp(damager, 5, "Zbito gracza " + entity.getName());
+						XP.delXp(entity, 5, "Smierc przez gracza " + damager.getName());
+						plugin.getServer().broadcastMessage(ChatColor.GRAY + entity.getName() + " (" + XP.getXp(entity) + ") zostal zabity przez " + damager.getName() + " (" + XP.getXp(damager) + ")");
 					}
 					plugin.getServer().broadcastMessage(ChatColor.GRAY + entity.getName() + " zostal zabity przez " + damager.getName());
 				}
@@ -42,7 +41,7 @@ public class KillListener implements Listener {
 				
 				if(e.getEntity().isDead()) {
 					if(MineZ.isDyrtCraftXPEnabled()) {
-						xp.addXp(damager, 3, "Zabito zombie");
+						XP.addXp(damager, 3, "Zabito zombie");
 					}
 				}
 			}
@@ -54,8 +53,8 @@ public class KillListener implements Listener {
 				
 				if(e.getEntity().isDead()) {
 					if(MineZ.isDyrtCraftXPEnabled()) {
-						xp.delXp(entity, 3, "Smierc przez zombie");
-						plugin.getServer().broadcastMessage(ChatColor.GRAY + entity.getName() + " (" + xp.getXp(entity) + ") zostal zabity przez zombie");
+						XP.delXp(entity, 3, "Smierc przez zombie");
+						plugin.getServer().broadcastMessage(ChatColor.GRAY + entity.getName() + " (" + XP.getXp(entity) + ") zostal zabity przez zombie");
 					}
 					plugin.getServer().broadcastMessage(ChatColor.GRAY + entity.getName() + " zostal zabity przez zombie");
 				}

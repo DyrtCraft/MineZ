@@ -1,6 +1,7 @@
 package pl.themolka.minez;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -58,6 +59,12 @@ public class MineZCommand implements CommandExecutor {
 					String liczba = args[1];
 					return delSpawnArg(player, liczba);
 				}
+				if(args[0].equalsIgnoreCase("kit")) {
+					if(args[1].equalsIgnoreCase("vip")) {
+						return kitVIPArg(player);
+					}
+					return erArg(player, "Podano bledy argument!");
+				}
 				if(args[0].equalsIgnoreCase("setspawn")) {
 					String liczba = args[1];
 					return setSpawnArg(player, liczba);
@@ -88,7 +95,7 @@ public class MineZCommand implements CommandExecutor {
 		}
 		player.sendMessage(ChatColor.GOLD + "========== Pomoc ==========");
 		player.sendMessage(ChatColor.RED + "/minez delspawn <numer>");
-		player.sendMessage(ChatColor.RED + "/minez kit");
+		player.sendMessage(ChatColor.RED + "/minez kit [vip]");
 		player.sendMessage(ChatColor.RED + "/minez pomoc");
 		player.sendMessage(ChatColor.RED + "/minez reload");
 		player.sendMessage(ChatColor.RED + "/minez setspawn <numer>");
@@ -119,6 +126,20 @@ public class MineZCommand implements CommandExecutor {
 		}
 		MineZ.sendStarterKit(player);
 		player.sendMessage(ChatColor.GRAY + "Otrzymanie startowego kitu.");
+		return true;
+	}
+	
+	protected boolean kitVIPArg(Player player) {
+		if(!(player.isOp())) {
+			player.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
+			return true;
+		}
+		if(!(player instanceof Player)) {
+			player.sendMessage(ChatColor.RED + "Nie mozesz wykonac tej komendy z poziomu konsoli!");
+			return true;
+		}
+		MineZ.sendStarterVIPKit(player);
+		player.sendMessage(ChatColor.GRAY + "Otrzymanie startowego kitu dla VIP.");
 		return true;
 	}
 	
@@ -176,6 +197,20 @@ public class MineZCommand implements CommandExecutor {
 			return true;
 		}
 		//TODO Randomowa teleportacja
+		
+		player.setFoodLevel(20);
+		player.setGameMode(GameMode.ADVENTURE);
+		player.setHealth(20.0);
+		
+		player.sendMessage(ChatColor.GOLD + "========== Porada ==========");
+		player.sendMessage(ChatColor.GRAY + "Witaj! Zostales przeteleportowany losowo na mape.");
+		player.sendMessage(ChatColor.GRAY + "- - - - - > " + ChatColor.BOLD + "Dobrej zabawy! :D");
+		
+		if(player.hasPermission("minez.vip") || player.isOp()) {
+			MineZ.sendStarterVIPKit(player);
+			return true;
+		}
+		MineZ.sendStarterKit(player);
 		return true;
 	}
 	

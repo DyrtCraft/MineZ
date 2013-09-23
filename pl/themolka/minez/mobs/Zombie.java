@@ -1,8 +1,15 @@
 package pl.themolka.minez.mobs;
 
+import org.bukkit.event.Listener;
 
-public class Zombie {
+import pl.themolka.minez.MineZ;
 
-	//TODO Zombie
+public class Zombie implements Listener {
+
+	MineZ plugin;
+	
+	public Zombie(MineZ mineZ) {
+		plugin = mineZ;
+	}
 	
 }

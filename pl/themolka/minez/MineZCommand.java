@@ -1,5 +1,7 @@
 package pl.themolka.minez;
 
+import java.util.Random;
+
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -12,6 +14,11 @@ import org.bukkit.entity.Player;
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftPlugin;
 import pl.themolka.minez.listeners.PlayerJoinAndQuitListener;
 
+/**
+ * @author Aleksander
+ * @since Development Build 001
+ * @see MineZ
+ */
 public class MineZCommand implements CommandExecutor {
 
 	MineZ plugin;
@@ -111,7 +118,10 @@ public class MineZCommand implements CommandExecutor {
 		}
 		plugin.getConfig().set("spawny." + numer, null);
 		plugin.saveConfig();
-		DyrtCraftPlugin.sendMsgToOp(player.getName() + " usunal spawn " + numer, 0);
+		if(MineZ.isDyrtCraftXPEnabled()) {
+			DyrtCraftPlugin.sendMsgToOp(player.getName() + " usunal spawn " + numer, 0);
+			return true;
+		}
 		return true;
 	}
 	
@@ -169,7 +179,10 @@ public class MineZCommand implements CommandExecutor {
 		plugin.getConfig().set("spawny." + numer + ".y", y);
 		plugin.getConfig().set("spawny." + numer + ".z", z);
 		plugin.saveConfig();
-		DyrtCraftPlugin.sendMsgToOp(player.getName() + " utworzyl nowy spawn " + numer, 0);
+		if(MineZ.isDyrtCraftXPEnabled()) {
+			DyrtCraftPlugin.sendMsgToOp(player.getName() + " utworzyl nowy spawn " + numer, 0);
+			return true;
+		}
 		return true;
 	}
 	
@@ -196,16 +209,24 @@ public class MineZCommand implements CommandExecutor {
 			player.sendMessage(ChatColor.RED + "Nie mozesz wykonac tej komendy z poziomu konsoli!");
 			return true;
 		}
-		//TODO Randomowa teleportacja
+		// Randomowa teleportacja na mape
+		Random random = new Random();
+		int randomPlayerNumber = random.nextInt(plugin.getServer().getOnlinePlayers().length);
 		
+		Player gracz = plugin.getServer().getOnlinePlayers()[randomPlayerNumber];
+		player.teleport(gracz);
+		
+		// Glod
 		player.setFoodLevel(20);
 		player.setGameMode(GameMode.ADVENTURE);
 		player.setHealth(20.0);
 		
+		// Motd
 		player.sendMessage(ChatColor.GOLD + "========== Porada ==========");
 		player.sendMessage(ChatColor.GRAY + "Witaj! Zostales przeteleportowany losowo na mape.");
 		player.sendMessage(ChatColor.GRAY + "- - - - - > " + ChatColor.BOLD + "Dobrej zabawy! :D");
 		
+		// Itemy
 		if(player.hasPermission("minez.vip") || player.isOp()) {
 			MineZ.sendStarterVIPKit(player);
 			return true;

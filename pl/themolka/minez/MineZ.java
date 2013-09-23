@@ -8,8 +8,17 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MineZ extends JavaPlugin {
+import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
 
+/**
+ * @author Aleksander
+ * @since Development Build 001
+ * @see MineZ#isDyrtCraftXPEnabled()
+ * @see MineZ#sendStarterKit(Player)
+ * @see MineZ#sendStarterVIPKit(Player)
+ */
+public class MineZ extends JavaPlugin {
+	
 	public void onEnable() {
 		if(!(getServer().getPluginManager().isPluginEnabled("DyrtCraftXP"))) {
 			getLogger().warning("Do pelnego dzialania tego pluginu potrzeby jest plugin DyrtCraftXP!");
@@ -23,6 +32,13 @@ public class MineZ extends JavaPlugin {
 		saveDefaultConfig();
 	}
 	
+	/**
+	 * @author TheMolkaPL
+	 * @since Development Build 001
+	 * @see DyrtCraftXP
+	 * @return true Jezeli plugin {@link DyrtCraftXP} jest wlaczony
+	 * @return false Jezeli plugin {@link DyrtCraftXP} jest wylaczony
+	 */
 	public static boolean isDyrtCraftXPEnabled() {
 		if(Bukkit.getPluginManager().isPluginEnabled("DyrtCraftXP")) {
 			return true;
@@ -50,9 +66,37 @@ public class MineZ extends JavaPlugin {
 		bandazMeta.setDisplayName(ChatColor.GOLD + "Bandaz");
 		bandaz.setItemMeta(bandazMeta);
 		
+		// Armor
+		ItemStack helmet = new ItemStack(Material.LEATHER_HELMET);
+		ItemMeta helmetMeta = helmet.getItemMeta();
+		helmetMeta.setDisplayName(ChatColor.GOLD + "");
+		helmet.setItemMeta(helmetMeta);
+		
+		ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
+		ItemMeta chestplateMeta = chestplate.getItemMeta();
+		chestplateMeta.setDisplayName(ChatColor.GOLD + "");
+		chestplate.setItemMeta(chestplateMeta);
+		
+		ItemStack leggins = new ItemStack(Material.LEATHER_LEGGINGS);
+		ItemMeta legginsMeta = leggins.getItemMeta();
+		legginsMeta.setDisplayName(ChatColor.GOLD + "");
+		leggins.setItemMeta(legginsMeta);
+		
+		ItemStack boots = new ItemStack(Material.LEATHER_BOOTS);
+		ItemMeta bootsMeta = boots.getItemMeta();
+		bootsMeta.setDisplayName(ChatColor.GOLD + "");
+		boots.setItemMeta(bootsMeta);
+		
+		// Dostawanie itemow
 		player.getInventory().addItem(miecz);
 		player.getInventory().addItem(butelka);
 		player.getInventory().addItem(bandaz);
+		
+		// Dostawanie armoru
+		player.getInventory().setHelmet(helmet);
+		player.getInventory().setChestplate(chestplate);
+		player.getInventory().setLeggings(leggins);
+		player.getInventory().setBoots(boots);
 	}
 	
 	public static void sendStarterVIPKit(Player player) {
@@ -80,8 +124,29 @@ public class MineZ extends JavaPlugin {
 		chlebMeta.setDisplayName(ChatColor.GOLD + "Chleb");
 		chleb.setItemMeta(chlebMeta);
 		
-		player.getInventory().addItem(miecz);
+		// Armor
+		ItemStack helmet = new ItemStack(Material.LEATHER_HELMET);
+		ItemMeta helmetMeta = helmet.getItemMeta();
+		helmetMeta.setDisplayName(ChatColor.GOLD + "");
+		helmet.setItemMeta(helmetMeta);
 		
+		ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
+		ItemMeta chestplateMeta = chestplate.getItemMeta();
+		chestplateMeta.setDisplayName(ChatColor.GOLD + "");
+		chestplate.setItemMeta(chestplateMeta);
+		
+		ItemStack leggins = new ItemStack(Material.LEATHER_LEGGINGS);
+		ItemMeta legginsMeta = leggins.getItemMeta();
+		legginsMeta.setDisplayName(ChatColor.GOLD + "");
+		leggins.setItemMeta(legginsMeta);
+		
+		ItemStack boots = new ItemStack(Material.LEATHER_BOOTS);
+		ItemMeta bootsMeta = boots.getItemMeta();
+		bootsMeta.setDisplayName(ChatColor.GOLD + "");
+		boots.setItemMeta(bootsMeta);
+		
+		// Dostawanie itemow
+		player.getInventory().addItem(miecz);
 		player.getInventory().addItem(butelka);
 		
 		player.getInventory().addItem(bandaz);
@@ -95,6 +160,12 @@ public class MineZ extends JavaPlugin {
 		player.getInventory().addItem(chleb);
 		player.getInventory().addItem(chleb);
 		player.getInventory().addItem(chleb);
+		
+		// Dostawanie armoru
+		player.getInventory().setHelmet(helmet);
+		player.getInventory().setChestplate(chestplate);
+		player.getInventory().setLeggings(leggins);
+		player.getInventory().setBoots(boots);
 	}
 	
 }

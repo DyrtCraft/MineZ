@@ -4,8 +4,6 @@ import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -40,17 +38,14 @@ public class MineZCommand implements CommandExecutor {
 				if(args[0].equalsIgnoreCase("admin") || args[0].equalsIgnoreCase("a")) {
 					return erAdminArg(player);
 				}
-				if(args[0].equalsIgnoreCase("delspawn")) {
-					return erArg(player, "Zbyt malo argumentów");
-				}
 				if(args[0].equalsIgnoreCase("kit")) {
 					return kitArg(player);
 				}
 				if(args[0].equalsIgnoreCase("pomoc")) {
 					return pomocArg(player);
 				}
-				if(args[0].equalsIgnoreCase("setspawn")) {
-					return erArg(player, "Zbyt malo argumentów");
+				if(args[0].equalsIgnoreCase("reload")) {
+					return reloadArg(player);
 				}
 				if(args[0].equalsIgnoreCase("spawn")) {
 					return spawnArg(player);
@@ -62,23 +57,11 @@ public class MineZCommand implements CommandExecutor {
 				}
 			}
 			if(args.length==2) {
-				if(args[0].equalsIgnoreCase("delspawn")) {
-					String liczba = args[1];
-					return delSpawnArg(player, liczba);
-				}
 				if(args[0].equalsIgnoreCase("kit")) {
 					if(args[1].equalsIgnoreCase("vip")) {
 						return kitVIPArg(player);
 					}
 					return erArg(player, "Podano bledy argument!");
-				}
-				if(args[0].equalsIgnoreCase("setspawn")) {
-					String liczba = args[1];
-					return setSpawnArg(player, liczba);
-				}
-				if(args[0].equalsIgnoreCase("spawn")) {
-					String liczba = args[1];
-					return spawnArg(player, liczba);
 				} else {
 					return erArg(player, "Podano bledy argument!");
 				}
@@ -101,27 +84,11 @@ public class MineZCommand implements CommandExecutor {
 			return true;
 		}
 		player.sendMessage(ChatColor.GOLD + "========== Pomoc ==========");
-		player.sendMessage(ChatColor.RED + "/minez delspawn <numer>");
 		player.sendMessage(ChatColor.RED + "/minez kit [vip]");
 		player.sendMessage(ChatColor.RED + "/minez pomoc");
 		player.sendMessage(ChatColor.RED + "/minez reload");
-		player.sendMessage(ChatColor.RED + "/minez setspawn <numer>");
-		player.sendMessage(ChatColor.RED + "/minez spawn [numer]");
+		player.sendMessage(ChatColor.RED + "/minez spawn [gracz]");
 		player.sendMessage(ChatColor.RED + "/minez staff");
-		return true;
-	}
-	
-	protected boolean delSpawnArg(Player player, String numer) {
-		if(!(player.isOp())) {
-			player.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
-			return true;
-		}
-		plugin.getConfig().set("spawny." + numer, null);
-		plugin.saveConfig();
-		if(MineZ.isDyrtCraftXPEnabled()) {
-			DyrtCraftPlugin.sendMsgToOp(player.getName() + " usunal spawn " + numer, 0);
-			return true;
-		}
 		return true;
 	}
 	
@@ -160,48 +127,22 @@ public class MineZCommand implements CommandExecutor {
 		return true;
 	}
 	
-	protected boolean setSpawnArg(Player player, String numer) {
+	protected boolean reloadArg(Player player) {
 		if(!(player.isOp())) {
 			player.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
 			return true;
-		}
-		if(!(player instanceof Player)) {
-			player.sendMessage(ChatColor.RED + "Nie mozesz wykonac tej komendy z poziomu konsoli!");
+		} else {
+			if(MineZ.isDyrtCraftXPEnabled()) {
+				DyrtCraftPlugin.sendMsgToOp(player.getName() + " przeladowyuje plik config.yml", 0);
+				plugin.reloadConfig();
+				DyrtCraftPlugin.sendMsgToOp(player.getName() + " przeladowal plik config.yml", 0);
+				return true;
+			}
+			player.sendMessage(ChatColor.GRAY + "Przeladowywanie pliku config.yml...");
+			plugin.reloadConfig();
+			player.sendMessage(ChatColor.GRAY + "Pomyslnie przeladowano plik config.yml!");
 			return true;
 		}
-		World world = player.getLocation().getWorld();
-		double x = player.getLocation().getX();
-		double y = player.getLocation().getY();
-		double z = player.getLocation().getZ();
-		
-		plugin.getConfig().set("spawny." + numer + ".world", world);
-		plugin.getConfig().set("spawny." + numer + ".x", x);
-		plugin.getConfig().set("spawny." + numer + ".y", y);
-		plugin.getConfig().set("spawny." + numer + ".z", z);
-		plugin.saveConfig();
-		if(MineZ.isDyrtCraftXPEnabled()) {
-			DyrtCraftPlugin.sendMsgToOp(player.getName() + " utworzyl nowy spawn " + numer, 0);
-			return true;
-		}
-		return true;
-	}
-	
-	protected boolean spawnArg(Player player, String numer) {
-		if(!(player.isOp())) {
-			player.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
-			return true;
-		}
-		if(!(player instanceof Player)) {
-			player.sendMessage(ChatColor.RED + "Nie mozesz wykonac tej komendy z poziomu konsoli!");
-			return true;
-		}
-		World world = plugin.getServer().getWorld("spawn." + numer + ".world");
-		double x = plugin.getConfig().getDouble("spawny." + numer + ".x");
-		double y = plugin.getConfig().getDouble("spawny." + numer + ".y");
-		double z = plugin.getConfig().getDouble("spawny." + numer + ".z");
-		player.teleport(new Location(world, x, y, z));
-		player.sendMessage(ChatColor.GRAY + "Teleportacja do spawnu " + numer + "...");
-		return true;
 	}
 	
 	protected boolean spawnArg(Player player) {

@@ -30,6 +30,9 @@ public class BandazListener implements Listener {
 		try {
 			if((e.getAction() == Action.RIGHT_CLICK_AIR) || (e.getAction() == Action.RIGHT_CLICK_BLOCK)) {
 				if(e.getItem().getType() == Material.PAPER) {
+					// Usunecie bandazu (papieru)
+					e.getPlayer().getInventory().remove(new ItemStack(Material.PAPER, 1));
+					
 					// Obliczenie food lvl
 					int foodLvl = e.getPlayer().getFoodLevel();
 					int foodLvl2 = foodLvl+10;
@@ -38,14 +41,14 @@ public class BandazListener implements Listener {
 					e.getPlayer().setFoodLevel(foodLvl2);
 					e.getPlayer().setHealth(20.0);
 					
-					// Usunecie bandazu (papieru)
-					e.getPlayer().getInventory().remove(new ItemStack(Material.PAPER, 1));
-					
 					// Porada
-					e.getPlayer().sendMessage(ChatColor.GOLD + "========== Porada ==========");
-					e.getPlayer().sendMessage(ChatColor.GRAY + "Czesc, wlasnie uleczyles sie bandazem!");
-					e.getPlayer().sendMessage(ChatColor.GRAY + "Bandaz to przydatny item podczas ostrej walki, gdy potrzebujesz szybkiego wyleczenia.");
-					e.getPlayer().sendMessage(ChatColor.GRAY + "Niestety jest to przedmiot dosc ciezki do zdobycia :(");
+					if(MineZ.isPoradyEnabled(e.getPlayer())) {
+						e.getPlayer().sendMessage(ChatColor.GOLD + "========== Porada ==========");
+						e.getPlayer().sendMessage(ChatColor.GRAY + "Czesc, wlasnie uleczyles sie bandazem!");
+						e.getPlayer().sendMessage(ChatColor.GRAY + "Bandaz to przydatny item podczas ostrej walki, gdy potrzebujesz szybkiego wyleczenia.");
+						e.getPlayer().sendMessage(ChatColor.GRAY + "Niestety jest to przedmiot dosc ciezki do zdobycia :(");
+						return;
+					}
 					
 					// Dodanie DyrtCraftXP, jezeli jest dostepny
 					if(MineZ.isDyrtCraftXPEnabled()) {

@@ -33,6 +33,10 @@ public class MineZ extends JavaPlugin {
 		saveDefaultConfig();
 	}
 	
+	public static void disablePorady(Player player) {}
+	
+	public static void enablePorady(Player player) {}
+	
 	/**
 	 * @author TheMolkaPL
 	 * @since Development Build 001
@@ -46,6 +50,10 @@ public class MineZ extends JavaPlugin {
 		} else {
 			return false;
 		}
+	}
+	
+	public static boolean isPoradyEnabled(Player player) {
+		return true;
 	}
 	
 	public static void sendStarterKit(Player player) {

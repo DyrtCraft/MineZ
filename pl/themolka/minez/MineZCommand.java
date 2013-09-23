@@ -221,9 +221,11 @@ public class MineZCommand implements CommandExecutor {
 		player.setGameMode(GameMode.ADVENTURE);
 		player.setHealth(20.0);
 		
-		// Motd
+		// Porada
 		player.sendMessage(ChatColor.GOLD + "========== Porada ==========");
-		player.sendMessage(ChatColor.GRAY + "Witaj! Zostales przeteleportowany losowo na mape.");
+		player.sendMessage(ChatColor.GRAY + "Zostales przeteleportowany losowo na mape.");
+		player.sendMessage(ChatColor.GRAY + "Witaj! Wlasnie rozpoczales walke o przetrwanie!");
+		player.sendMessage(ChatColor.GRAY + "Zdobywaj itemy w wioskach, walcz z Zombie, przetrwaj!");
 		player.sendMessage(ChatColor.GRAY + "- - - - - > " + ChatColor.BOLD + "Dobrej zabawy! :D");
 		
 		// Itemy

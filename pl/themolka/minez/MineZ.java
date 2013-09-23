@@ -23,6 +23,7 @@ public class MineZ extends JavaPlugin {
 		if(!(getServer().getPluginManager().isPluginEnabled("DyrtCraftXP"))) {
 			getLogger().warning("Do pelnego dzialania tego pluginu potrzeby jest plugin DyrtCraftXP!");
 		}
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.BandazListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.CreatureSpawnListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.Cuboid(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.PlayerJoinAndQuitListener(this), this);
@@ -68,21 +69,29 @@ public class MineZ extends JavaPlugin {
 		
 		// Armor
 		ItemStack helmet = new ItemStack(Material.LEATHER_HELMET);
+		short a = 40;
+		helmet.setDurability(a);
 		ItemMeta helmetMeta = helmet.getItemMeta();
 		helmetMeta.setDisplayName(ChatColor.GOLD + "");
 		helmet.setItemMeta(helmetMeta);
 		
 		ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
+		short b = 45;
+		chestplate.setDurability(b);
 		ItemMeta chestplateMeta = chestplate.getItemMeta();
 		chestplateMeta.setDisplayName(ChatColor.GOLD + "");
 		chestplate.setItemMeta(chestplateMeta);
 		
 		ItemStack leggins = new ItemStack(Material.LEATHER_LEGGINGS);
+		short c = 45;
+		leggins.setDurability(c);
 		ItemMeta legginsMeta = leggins.getItemMeta();
 		legginsMeta.setDisplayName(ChatColor.GOLD + "");
 		leggins.setItemMeta(legginsMeta);
 		
 		ItemStack boots = new ItemStack(Material.LEATHER_BOOTS);
+		short d = 20;
+		boots.setDurability(d);
 		ItemMeta bootsMeta = boots.getItemMeta();
 		bootsMeta.setDisplayName(ChatColor.GOLD + "");
 		boots.setItemMeta(bootsMeta);

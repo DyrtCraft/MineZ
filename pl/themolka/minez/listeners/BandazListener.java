@@ -35,6 +35,8 @@ public class BandazListener implements Listener {
 					e.getPlayer().setFoodLevel(foodLvl2);
 					
 					e.getPlayer().setHealth(20.0);
+					
+					e.getPlayer().getInventory().remove(Material.PAPER);
 				}
 			}
 		} catch(NullPointerException ex) {}

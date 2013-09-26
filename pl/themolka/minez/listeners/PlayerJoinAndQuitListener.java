@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftPlugin;
 import pl.themolka.minez.MineZ;
+import pl.themolka.minez.Sklep;
 
 public class PlayerJoinAndQuitListener implements Listener {
 	
@@ -31,6 +32,13 @@ public class PlayerJoinAndQuitListener implements Listener {
 			administracja_online.add(e.getPlayer().getName());
 			return;
 		}
+		if(MineZ.isDyrtCraftXPEnabled()) {
+			if(e.getPlayer().hasPermission("minez.vip")) {
+				e.getPlayer().getInventory().addItem(Sklep.getSklepItem());
+				return;
+			}
+			return;
+		}
 		e.getPlayer().setGameMode(GameMode.ADVENTURE);
 	}
 	
@@ -42,6 +50,10 @@ public class PlayerJoinAndQuitListener implements Listener {
 				return;
 			}
 			administracja_online.remove(e.getPlayer().getName());
+			return;
+		}
+		if(MineZ.isDyrtCraftXPEnabled()) {
+			e.getPlayer().getInventory().remove(Sklep.getSklepItem());
 			return;
 		}
 		if(plugin.getServer().getOnlinePlayers().length == 0) {

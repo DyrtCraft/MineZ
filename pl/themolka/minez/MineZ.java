@@ -11,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
 
 /**
- * @author Aleksander
+ * @author TheMolkaPL
  * @since Development Build 001
  * @see MineZ#isDyrtCraftXPEnabled()
  * @see MineZ#sendStarterKit(Player)
@@ -22,7 +22,9 @@ public class MineZ extends JavaPlugin {
 	public void onEnable() {
 		if(!(getServer().getPluginManager().isPluginEnabled("DyrtCraftXP"))) {
 			getLogger().warning("Do pelnego dzialania tego pluginu potrzeby jest plugin DyrtCraftXP!");
+			return;
 		}
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.Sklep(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.BandazListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.CreatureSpawnListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.Cuboid(this), this);
@@ -42,7 +44,6 @@ public class MineZ extends JavaPlugin {
 	 * @since Development Build 001
 	 * @see DyrtCraftXP
 	 * @return true Jezeli plugin {@link DyrtCraftXP} jest wlaczony
-	 * @return false Jezeli plugin {@link DyrtCraftXP} jest wylaczony
 	 */
 	public static boolean isDyrtCraftXPEnabled() {
 		if(Bukkit.getPluginManager().isPluginEnabled("DyrtCraftXP")) {

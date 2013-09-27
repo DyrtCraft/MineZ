@@ -20,10 +20,6 @@ import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
 public class MineZ extends JavaPlugin {
 	
 	public void onEnable() {
-		if(!(getServer().getPluginManager().isPluginEnabled("DyrtCraftXP"))) {
-			getLogger().warning("Do pelnego dzialania tego pluginu potrzeby jest plugin DyrtCraftXP!");
-			return;
-		}
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.Sklep(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.BandazListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.CreatureSpawnListener(this), this);
@@ -33,6 +29,10 @@ public class MineZ extends JavaPlugin {
 		getCommand("minez").setExecutor(new pl.themolka.minez.MineZCommand(this));
 		
 		saveDefaultConfig();
+		
+		if(!(MineZ.isDyrtCraftXPEnabled())) {
+			getLogger().warning("Do pelnego dzialania tego pluginu potrzeby jest plugin DyrtCraftXP!");
+		}
 	}
 	
 	public static void disablePorady(Player player) {}

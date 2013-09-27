@@ -54,7 +54,7 @@ public class MineZCommand implements CommandExecutor {
 				if(args[0].equalsIgnoreCase("staff")) {
 					return staffArg(sender);
 				} else {
-					return erArg(sender, "Podano bledy argument!");
+					return erArg(sender, "Podano bledny argument!");
 				}
 			}
 			if(args.length==2) {
@@ -62,9 +62,9 @@ public class MineZCommand implements CommandExecutor {
 					if(args[1].equalsIgnoreCase("vip")) {
 						return kitVIPArg(sender);
 					}
-					return erArg(sender, "Podano bledy argument!");
+					return erArg(sender, "Podano bledny argument!");
 				} else {
-					return erArg(sender, "Podano bledy argument!");
+					return erArg(sender, "Podano bledny argument!");
 				}
 			} else {
 				return erArg(sender, "Zbyt duzo argumentów!");

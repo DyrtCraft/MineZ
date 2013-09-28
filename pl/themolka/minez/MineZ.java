@@ -24,6 +24,7 @@ public class MineZ extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.BandazListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.CreatureSpawnListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.Cuboid(this), this);
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.EntityDeath(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.PlayerJoinAndQuitListener(this), this);
 		
 		getCommand("minez").setExecutor(new pl.themolka.minez.MineZCommand(this));

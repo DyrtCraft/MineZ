@@ -20,6 +20,8 @@ public class CreatureSpawnListener implements Listener {
 		} else {
 			Zombie zombie = (Zombie) e.getEntity();
 			zombie.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+			zombie.setBaby(false);
+			zombie.setCanPickupItems(true);
 		}
 	}
 	

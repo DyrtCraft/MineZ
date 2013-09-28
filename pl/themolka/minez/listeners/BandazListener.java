@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 
 import pl.DyrtCraft.DyrtCraftXP.api.XP;
 import pl.themolka.minez.MineZ;
+import pl.themolka.minez.Sklep;
 
 /**
  * @author TheMolkaPL
@@ -32,6 +33,7 @@ public class BandazListener implements Listener {
 				if(e.getItem().getType() == Material.PAPER) {
 					// Usunecie bandazu (papieru)
 					e.getPlayer().getInventory().remove(new ItemStack(Material.PAPER, 1));
+					e.getPlayer().getInventory().remove(Sklep.getSklepItem());
 					
 					// Obliczenie food lvl
 					int foodLvl = e.getPlayer().getFoodLevel();
@@ -47,13 +49,10 @@ public class BandazListener implements Listener {
 						e.getPlayer().sendMessage(ChatColor.GRAY + "Czesc, wlasnie uleczyles sie bandazem!");
 						e.getPlayer().sendMessage(ChatColor.GRAY + "Bandaz to przydatny item podczas ostrej walki, gdy potrzebujesz szybkiego wyleczenia.");
 						e.getPlayer().sendMessage(ChatColor.GRAY + "Niestety jest to przedmiot dosc ciezki do zdobycia :(");
-						return;
-					}
-					
-					// Dodanie DyrtCraftXP, jezeli jest dostepny
-					if(MineZ.isDyrtCraftXPEnabled()) {
+						
 						XP.addXp(e.getPlayer(), 3, "Uleczyles sie bandazem");
 					}
+					XP.addXp(e.getPlayer(), 3, "Uleczyles sie bandazem");
 				}
 			}
 		} catch(NullPointerException ex) {}

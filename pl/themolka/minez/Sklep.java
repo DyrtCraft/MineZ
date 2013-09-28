@@ -31,22 +31,23 @@ public class Sklep implements Listener {
 	public Sklep(MineZ mineZ) {
 		plugin = mineZ;
 		
-		inv = plugin.getServer().createInventory(null, 9, ChatColor.RED + "Sklep " + ChatColor.GOLD + "MineZ");
+		inv = plugin.getServer().createInventory(null, 45, ChatColor.RED + "Sklep " + ChatColor.GOLD + "MineZ");
 		
 		drewniany_miecz = cretateItem(Material.WOOD_SWORD, "Drewniany Miecz", "Najlepszy na poczatek", 10);
 		kamienny_miecz = cretateItem(Material.STONE_SWORD, "Kamienny miecz", "Podstawowa bron", 20);
+		butelka = cretateItem(Material.getMaterial(373), "Woda", "Napojenie", 60);
 		bandaz = cretateItem(Material.PAPER, "Bandaz", "Szybkie uleczanie", 70);
-		zegarek = cretateItem(null, "Zegarek", "Sprawdz czas!", 50);
+		zegarek = cretateItem(Material.getMaterial(347), "Zegarek", "Sprawdz czas!", 50);
 		melon = cretateItem(Material.MELON, "Melon", "Mala przegryzka", 40);
 		chleb = cretateItem(Material.BREAD, "Chleb", "Jedzenie", 55);
 		
-		
 		inv.setItem(0, drewniany_miecz);
 		inv.setItem(1, kamienny_miecz);
-		inv.setItem(2, bandaz);
-		inv.setItem(3, zegarek);
-		inv.setItem(4, melon);
-		inv.setItem(5, chleb);
+		inv.setItem(2, butelka);
+		inv.setItem(3, bandaz);
+		inv.setItem(4, zegarek);
+		inv.setItem(5, melon);
+		inv.setItem(6, chleb);
 	}
 	
 	/**
@@ -116,33 +117,38 @@ public class Sklep implements Listener {
 		try {
 			Player player = (Player) e.getWhoClicked();
 			
-			if(e.getInventory().getName().equalsIgnoreCase("Sklep")) {
-				if(e.getCurrentItem().getItemMeta().getDisplayName().contains("Drewniany Miecz")) {
+			if((e.getInventory().getName().equalsIgnoreCase(inv.getName()))) {
+				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Drewniany Miecz")) {
 					e.setCancelled(true);
 					buyItem(player, Material.WOOD_SWORD, "Drewniany Miecz", 10);
 					player.closeInventory();
 				}
-				if(e.getCurrentItem().getItemMeta().getDisplayName().contains("Kamienny Miecz")) {
+				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Kamienny miecz")) {
 					e.setCancelled(true);
-					buyItem(player, Material.STONE_SWORD, "Kamienny Miecz", 20);
+					buyItem(player, Material.STONE_SWORD, "Kamienny miecz", 20);
 					player.closeInventory();
 				}
-				if(e.getCurrentItem().getItemMeta().getDisplayName().contains("Bandaz")) {
+				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Woda")) {
+					e.setCancelled(true);
+					buyItem(player, Material.getMaterial(373), "Woda", 60);
+					player.closeInventory();
+				}
+				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Bandaz")) {
 					e.setCancelled(true);
 					buyItem(player, Material.PAPER, "Bandaz", 70);
 					player.closeInventory();
 				}
-				if(e.getCurrentItem().getItemMeta().getDisplayName().contains("Zegarek")) {
+				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Zegarek")) {
 					e.setCancelled(true);
-					buyItem(player, null, "Zegarek", 50);
+					buyItem(player, Material.getMaterial(347), "Zegarek", 50);
 					player.closeInventory();
 				}
-				if(e.getCurrentItem().getItemMeta().getDisplayName().contains("Melon")) {
+				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Melon")) {
 					e.setCancelled(true);
 					buyItem(player, Material.MELON, "Melon", 40);
 					player.closeInventory();
 				}
-				if(e.getCurrentItem().getItemMeta().getDisplayName().contains("Chleb")) {
+				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Chleb")) {
 					e.setCancelled(true);
 					buyItem(player, Material.BREAD, "Chleb", 55);
 					player.closeInventory();

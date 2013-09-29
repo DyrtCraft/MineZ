@@ -1,1 +1,6 @@
-spawny:
+chron-spawn: true
+swiat-spawn: Spawn
+swiaty-minez:
+    - Alfa
+    - Beta
+    - Gamma

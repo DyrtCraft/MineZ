@@ -1,7 +1,10 @@
 package pl.themolka.minez;
 
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -19,6 +22,9 @@ import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
  */
 public class MineZ extends JavaPlugin {
 	
+	protected static MineZ plugin;
+	
+	@Override
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.Sklep(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.BandazListener(this), this);
@@ -26,6 +32,7 @@ public class MineZ extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.Cuboid(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.EntityDeath(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.PlayerJoinAndQuitListener(this), this);
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.SignsManager(this), this);
 		
 		getCommand("minez").setExecutor(new pl.themolka.minez.MineZCommand(this));
 		
@@ -42,12 +49,56 @@ public class MineZ extends JavaPlugin {
 	
 	/**
 	 * @author TheMolkaPL
+	 * @return 
+	 * @since Development Build 012
+	 */
+	public static MineZ getInstance() {
+		return plugin;
+	}
+	
+	/**
+	 * @author TheMolkaPL
+	 * @since Development Build 012
+	 * @see MineZ#getSpawnWorld()
+	 * @return Lista swiatow MineZ
+	 */
+	public static List<String> getMineZWorlds() {
+		List<String> lista_swiatow = plugin.getConfig().getStringList("swiaty-minez");
+		return lista_swiatow;
+	}
+	
+	/**
+	 * @author TheMolkaPL
+	 * @since Development Build 012
+	 * @see MineZ#getMineZWorlds()
+	 * @return String - nazwa swiata na ktorym znajduje sie spawn
+	 */
+	public static String getSpawnWorld() {
+		String spawn_world = plugin.getConfig().getString("swiat-spawn");
+		return spawn_world;
+	}
+	
+	/**
+	 * @author TheMolkaPL
 	 * @since Development Build 001
 	 * @see DyrtCraftXP
 	 * @return true Jezeli plugin {@link DyrtCraftXP} jest wlaczony
 	 */
 	public static boolean isDyrtCraftXPEnabled() {
 		if(Bukkit.getPluginManager().isPluginEnabled("DyrtCraftXP")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * @author TheMolkaPL
+	 * @since Development Build 012
+	 * @return true Jezeli chron-spawn jest wlaczone w pliku config.yml
+	 */
+	public static boolean isSpawnProtected() {
+		if(plugin.getConfig().getBoolean("chron-spawn") == true) {
 			return true;
 		} else {
 			return false;
@@ -185,6 +236,37 @@ public class MineZ extends JavaPlugin {
 		player.getInventory().setChestplate(chestplate);
 		player.getInventory().setLeggings(leggins);
 		player.getInventory().setBoots(boots);
+	}
+	
+	/**
+	 * @author TheMolkaPL
+	 * @since Development Build 012
+	 * @param player Gracz ktory ma zostac zespawnowany
+	 * @param world Swiat w ktorym player ma zostac zespawnowany
+	 */
+	public static void spawnPlayer(Player player, String world) {
+		// Randomowa teleportacja na mape
+		/*
+		 * TODO: Randomowa teleportacja
+		 */
+		
+		// Glod
+		player.setFoodLevel(20);
+		player.setGameMode(GameMode.ADVENTURE);
+		player.setHealth(20.0);
+		
+		// Porada
+		player.sendMessage(ChatColor.GOLD + "========== Porada ==========");
+		player.sendMessage(ChatColor.GRAY + "Zostales przeteleportowany losowo na mape.");
+		player.sendMessage(ChatColor.GRAY + "Witaj! Wlasnie rozpoczales walke o przetrwanie!");
+		player.sendMessage(ChatColor.GRAY + "Zdobywaj itemy w wioskach, walcz z Zombie, przetrwaj!");
+		player.sendMessage(ChatColor.GRAY + "- - - - - > " + ChatColor.BOLD + "Dobrej zabawy! :D");
+		
+		// Itemy
+		if(player.hasPermission("minez.vip") || player.isOp()) {
+			MineZ.sendStarterVIPKit(player);
+		}
+		MineZ.sendStarterKit(player);
 	}
 	
 }

@@ -1,9 +1,6 @@
 package pl.themolka.minez;
 
-import java.util.Random;
-
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -39,17 +36,17 @@ public class MineZCommand implements CommandExecutor {
 				if(args[0].equalsIgnoreCase("kit")) {
 					return kitArg(sender);
 				}
-				if(args[0].equalsIgnoreCase("pomoc")) {
+				if(args[0].equalsIgnoreCase("pomoc") || args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")){
 					return pomocArg(sender);
 				}
 				if(args[0].equalsIgnoreCase("reload")) {
 					return reloadArg(sender);
 				}
-				if(args[0].equalsIgnoreCase("sklep")) {
+				if(args[0].equalsIgnoreCase("sklep") || args[0].equalsIgnoreCase("shop")) {
 					return sklepArg(sender);
 				}
-				if(args[0].equalsIgnoreCase("spawn")) {
-					return spawnArg(sender);
+				if(args[0].equalsIgnoreCase("spawn") || args[0].equalsIgnoreCase("start") || args[0].equalsIgnoreCase("join")) {
+					return erArg(sender, "Nie podano nazwy mapy!");
 				}
 				if(args[0].equalsIgnoreCase("staff")) {
 					return staffArg(sender);
@@ -63,6 +60,9 @@ public class MineZCommand implements CommandExecutor {
 						return kitVIPArg(sender);
 					}
 					return erArg(sender, "Podano bledny argument!");
+				}
+				if(args[0].equalsIgnoreCase("spawn")) {
+					return spawnArg(sender, args[1]);
 				} else {
 					return erArg(sender, "Podano bledny argument!");
 				}
@@ -88,7 +88,8 @@ public class MineZCommand implements CommandExecutor {
 		sender.sendMessage(ChatColor.RED + "/minez kit [vip]");
 		sender.sendMessage(ChatColor.RED + "/minez pomoc");
 		sender.sendMessage(ChatColor.RED + "/minez reload");
-		sender.sendMessage(ChatColor.RED + "/minez spawn [gracz]");
+		sender.sendMessage(ChatColor.RED + "/minez sklep");
+		sender.sendMessage(ChatColor.RED + "/minez spawn <mapa>");
 		sender.sendMessage(ChatColor.RED + "/minez staff");
 		return true;
 	}
@@ -162,37 +163,13 @@ public class MineZCommand implements CommandExecutor {
 		return true;
 	}
 	
-	protected boolean spawnArg(CommandSender sender) {
+	protected boolean spawnArg(CommandSender sender, String world) {
 		if(!(sender instanceof Player)) {
 			sender.sendMessage(ChatColor.RED + "Nie mozesz wykonac tej komendy z poziomu konsoli!");
 			return true;
 		}
 		Player player = (Player) sender;
-		// Randomowa teleportacja na mape
-		Random random = new Random();
-		int randomPlayerNumber = random.nextInt(plugin.getServer().getOnlinePlayers().length);
-		
-		Player gracz = plugin.getServer().getOnlinePlayers()[randomPlayerNumber];
-		player.teleport(gracz);
-		
-		// Glod
-		player.setFoodLevel(20);
-		player.setGameMode(GameMode.ADVENTURE);
-		player.setHealth(20.0);
-		
-		// Porada
-		player.sendMessage(ChatColor.GOLD + "========== Porada ==========");
-		player.sendMessage(ChatColor.GRAY + "Zostales przeteleportowany losowo na mape.");
-		player.sendMessage(ChatColor.GRAY + "Witaj! Wlasnie rozpoczales walke o przetrwanie!");
-		player.sendMessage(ChatColor.GRAY + "Zdobywaj itemy w wioskach, walcz z Zombie, przetrwaj!");
-		player.sendMessage(ChatColor.GRAY + "- - - - - > " + ChatColor.BOLD + "Dobrej zabawy! :D");
-		
-		// Itemy
-		if(player.hasPermission("minez.vip") || player.isOp()) {
-			MineZ.sendStarterVIPKit(player);
-			return true;
-		}
-		MineZ.sendStarterKit(player);
+		MineZ.spawnPlayer(player, world);
 		return true;
 	}
 	

@@ -25,48 +25,71 @@ public class MineZCommand implements CommandExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command,String label, String[] args) {
+		// Komenda /minez i /mz
 		if(command.getName().equalsIgnoreCase("minez") || command.getName().equalsIgnoreCase("mz")) {
+			// Liczba argumentow - 0
 			if(args.length==0) {
+				// Nie podano zadnych argumentow
 				return pomocArg(sender);
 			}
+			// Liczba argumentow - 1
 			if(args.length==1) {
+				// Argument 0: about, version, author
+				if(args[0].equalsIgnoreCase("about") || args[0].equalsIgnoreCase("version") || args[0].equalsIgnoreCase("author")) {
+					return aboutArg(sender);
+				}
+				// Argument 0: admin, a
 				if(args[0].equalsIgnoreCase("admin") || args[0].equalsIgnoreCase("a")) {
 					return erAdminArg(sender);
 				}
+				// Argument 0: kit
 				if(args[0].equalsIgnoreCase("kit")) {
 					return kitArg(sender);
 				}
+				// Argument 0: pomoc, help, ?
 				if(args[0].equalsIgnoreCase("pomoc") || args[0].equalsIgnoreCase("help") || args[0].equalsIgnoreCase("?")){
 					return pomocArg(sender);
 				}
+				// Argument 0: reload
 				if(args[0].equalsIgnoreCase("reload")) {
 					return reloadArg(sender);
 				}
+				// Argument 0: sklep, shop
 				if(args[0].equalsIgnoreCase("sklep") || args[0].equalsIgnoreCase("shop")) {
 					return sklepArg(sender);
 				}
+				// Argument 0: spawn, start, join
 				if(args[0].equalsIgnoreCase("spawn") || args[0].equalsIgnoreCase("start") || args[0].equalsIgnoreCase("join")) {
 					return erArg(sender, "Nie podano nazwy mapy!");
 				}
+				// Argument 0: staff
 				if(args[0].equalsIgnoreCase("staff")) {
 					return staffArg(sender);
 				} else {
+					// Zaden z argumentow 0 nie zostal spelniony
 					return erArg(sender, "Podano bledny argument!");
 				}
 			}
+			// Liczba argumentow - 2
 			if(args.length==2) {
+				// Argument 0: kit
 				if(args[0].equalsIgnoreCase("kit")) {
+					// Argument 1: vip
 					if(args[1].equalsIgnoreCase("vip")) {
 						return kitVIPArg(sender);
 					}
+					// Zaden z argumentow 1 nie zostal spelniony
 					return erArg(sender, "Podano bledny argument!");
 				}
-				if(args[0].equalsIgnoreCase("spawn")) {
+				// Argument 0: spawn, start, join
+				if(args[0].equalsIgnoreCase("spawn") || args[0].equalsIgnoreCase("start") || args[0].equalsIgnoreCase("join")) {
 					return spawnArg(sender, args[1]);
 				} else {
+					// Zaden z argumentow 0 nie zostal spelniony
 					return erArg(sender, "Podano bledny argument!");
 				}
 			} else {
+				// Liczba argumentow nie zostala spelniona
 				return erArg(sender, "Zbyt duzo argumentów!");
 			}
 		}
@@ -79,12 +102,21 @@ public class MineZCommand implements CommandExecutor {
 		return true;
 	}
 	
+	protected boolean aboutArg(CommandSender sender) {
+		sender.sendMessage(ChatColor.GOLD + " >==========[ " + ChatColor.BOLD + ChatColor.AQUA + "MineZ" + ChatColor.RESET + ChatColor.GOLD + " ]==========< ");
+		sender.sendMessage(ChatColor.GOLD + "Wersja: " + ChatColor.GRAY + MineZ.getPluginVersion());
+		sender.sendMessage(ChatColor.GOLD + "Autor: " + plugin.getDescription().getAuthors());
+		sender.sendMessage(ChatColor.GOLD + " >==========[ " + ChatColor.BOLD + ChatColor.AQUA + "MineZ" + ChatColor.RESET + ChatColor.GOLD + " ]==========< ");
+		return true;
+	}
+	
 	protected boolean erAdminArg(CommandSender sender) {
 		if(!(sender.isOp())) {
 			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
 			return true;
 		}
 		sender.sendMessage(ChatColor.GOLD + "========== Pomoc ==========");
+		sender.sendMessage(ChatColor.RED + "/minez about");
 		sender.sendMessage(ChatColor.RED + "/minez kit [vip]");
 		sender.sendMessage(ChatColor.RED + "/minez pomoc");
 		sender.sendMessage(ChatColor.RED + "/minez reload");
@@ -169,6 +201,10 @@ public class MineZCommand implements CommandExecutor {
 			return true;
 		}
 		Player player = (Player) sender;
+		if(!(player.getLocation().getWorld().toString() == MineZ.getSpawnWorldName())) {
+			player.sendMessage(ChatColor.RED + "Nie mozesz rozpoczac nowej rozgrywki, jezeli obecnie jestes w grze!");
+			return true;
+		}
 		MineZ.spawnPlayer(player, world);
 		return true;
 	}

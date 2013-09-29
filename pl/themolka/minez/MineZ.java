@@ -22,7 +22,8 @@ import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
  */
 public class MineZ extends JavaPlugin {
 	
-	protected static MineZ plugin;
+	private static MineZ plugin;
+	private static String version = "Development Build 013";
 	
 	@Override
 	public void onEnable() {
@@ -69,11 +70,20 @@ public class MineZ extends JavaPlugin {
 	
 	/**
 	 * @author TheMolkaPL
+	 * @since Development Build 013
+	 * @return String - wersja pluginu
+	 */
+	public static String getPluginVersion() {
+		return version;
+	}
+	
+	/**
+	 * @author TheMolkaPL
 	 * @since Development Build 012
 	 * @see MineZ#getMineZWorlds()
 	 * @return String - nazwa swiata na ktorym znajduje sie spawn
 	 */
-	public static String getSpawnWorld() {
+	public static String getSpawnWorldName() {
 		String spawn_world = plugin.getConfig().getString("swiat-spawn");
 		return spawn_world;
 	}
@@ -265,8 +275,9 @@ public class MineZ extends JavaPlugin {
 		// Itemy
 		if(player.hasPermission("minez.vip") || player.isOp()) {
 			MineZ.sendStarterVIPKit(player);
+		} else {
+			MineZ.sendStarterKit(player);
 		}
-		MineZ.sendStarterKit(player);
 	}
 	
 }

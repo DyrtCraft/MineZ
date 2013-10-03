@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftPlugin;
 import pl.themolka.minez.MineZ;
+import pl.themolka.minez.Scoreboard;
 import pl.themolka.minez.Sklep;
 
 public class PlayerJoinAndQuitListener implements Listener {
@@ -24,6 +25,7 @@ public class PlayerJoinAndQuitListener implements Listener {
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
+		Scoreboard.setScoreboard(e.getPlayer());
 		if(e.getPlayer().isOp()) {
 			if(MineZ.isDyrtCraftXPEnabled()) {
 				DyrtCraftPlugin.sendMsgToOp(e.getPlayer().getName() + " dolaczyl na serwer", 0);
@@ -44,6 +46,7 @@ public class PlayerJoinAndQuitListener implements Listener {
 	
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {
+		Scoreboard.setScoreboard(e.getPlayer());
 		if(e.getPlayer().isOp()) {
 			if(MineZ.isDyrtCraftXPEnabled()) {
 				DyrtCraftPlugin.sendMsgToOp(e.getPlayer().getName() + " wyszedl z serwera", 0);

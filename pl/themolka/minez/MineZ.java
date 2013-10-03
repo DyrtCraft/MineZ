@@ -23,7 +23,7 @@ import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
 public class MineZ extends JavaPlugin {
 	
 	private static MineZ plugin;
-	private static String version = "Development Build 013";
+	private static String version = "Development Build 014";
 	
 	@Override
 	public void onEnable() {
@@ -41,6 +41,9 @@ public class MineZ extends JavaPlugin {
 		
 		if(!(MineZ.isDyrtCraftXPEnabled())) {
 			getLogger().warning("Do pelnego dzialania tego pluginu potrzeby jest plugin DyrtCraftXP!");
+		} else {
+			getLogger().info("Wykryto plugin DyrtCraftXP wersja " + DyrtCraftXP.getInstance().getVersion() + " by " + DyrtCraftXP.getInstance().getAuthors());
+			getLogger().info("Wspolpraca z pluginem DyrtCraft...");
 		}
 	}
 	

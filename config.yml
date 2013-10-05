@@ -1,4 +1,5 @@
 chron-spawn: true
+debug: true
 swiat-spawn: Spawn
 swiaty-minez:
     - Alfa

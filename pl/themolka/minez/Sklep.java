@@ -56,6 +56,7 @@ public class Sklep implements Listener {
 	 * @param player Gracz dla ktorego ma zostac wyswietlony sklep
 	 */
 	public static void showSklep(Player player) {
+		MineZ.debug("public static void showSklep(Player)");
 		if(MineZ.isDyrtCraftXPEnabled()) {
 			player.openInventory(inv);
 		} else {
@@ -69,6 +70,8 @@ public class Sklep implements Listener {
 	 * @return Emerald - sklep
 	 */
 	public static ItemStack getSklepItem() {
+		MineZ.debug("public static ItemStack getSklepItem()");
+		
 		ItemStack item = new ItemStack(Material.EMERALD);
 		ItemMeta itemMeta = item.getItemMeta();
 		itemMeta.setDisplayName(ChatColor.GOLD + "Sklep MineZ");
@@ -87,6 +90,7 @@ public class Sklep implements Listener {
 	}
 	
 	protected void buyItem(Player player, Material material, String name, int cost) {
+		MineZ.debug("protected void buyItem(Player, Material, String, int)");
 		if(MineZ.isDyrtCraftXPEnabled()) {
 			XP.delXp(player, cost, "Zakup w sklepie itemu: " + name);
 			
@@ -106,7 +110,9 @@ public class Sklep implements Listener {
 		try {
 			if(e.getItem().getItemMeta().getDisplayName().contains("Sklep")) {
 				if((e.getAction() == Action.RIGHT_CLICK_AIR) || (e.getAction() == Action.RIGHT_CLICK_BLOCK)) {
-					Sklep.showSklep(e.getPlayer());
+					if(e.getPlayer().hasPermission("minez.vip")) {
+						Sklep.showSklep(e.getPlayer());
+					}
 				}
 			}
 		} catch(NullPointerException ex) {}

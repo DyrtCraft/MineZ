@@ -24,20 +24,15 @@ public class SignsManager implements Listener {
 				e.setCancelled(true);
 				e.getPlayer().sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
 			} else {
-				if(e.getLine(1).equalsIgnoreCase("Mapa")) {
-					if(e.getLine(2).isEmpty()) {
-						e.getBlock().breakNaturally();
-						e.setCancelled(true);
-						e.getPlayer().sendMessage(ChatColor.RED + "Nie podano nazwy mapy!");
-					}
+				if(e.getLine(1).equalsIgnoreCase("Graj")) {
 					e.setLine(0, ChatColor.DARK_GREEN + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "MineZ");
-					e.setLine(1, ChatColor.WHITE + "Graj na mapie:");
-					e.setLine(2, ChatColor.WHITE + e.getLine(2));
+					e.setLine(1, ChatColor.AQUA + "Graj na mapie:");
+					e.setLine(2, ChatColor.DARK_RED + "" + ChatColor.BOLD + e.getLine(2));
 					e.setLine(3, "");
 				}
-				if(e.getLine(1).equalsIgnoreCase("Sklep")) {
+				else if(e.getLine(1).equalsIgnoreCase("Sklep")) {
 					e.setLine(0, ChatColor.DARK_GREEN + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "MineZ");
-					e.setLine(1, ChatColor.WHITE + "Sklep");
+					e.setLine(1, ChatColor.AQUA + "Sklep");
 					e.setLine(2, "");
 					e.setLine(3, "");
 				} else {
@@ -56,11 +51,13 @@ public class SignsManager implements Listener {
 			if(e.getClickedBlock().getState() instanceof Sign) {
 				Sign s = (Sign) e.getClickedBlock().getState();
 				if(s.getLine(0).equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "MineZ")) {
-					if(s.getLine(1).equalsIgnoreCase(ChatColor.WHITE + "Graj na mapie:")) {
+					if(s.getLine(1).equalsIgnoreCase(ChatColor.AQUA + "Graj na mapie:")) {
 						MineZ.spawnPlayer(e.getPlayer(), s.getLine(2));
+						System.out.println("test");
 					}
-					if(s.getLine(1).equalsIgnoreCase(ChatColor.WHITE + "Sklep")) {
+					else if(s.getLine(1).equalsIgnoreCase(ChatColor.AQUA + "Sklep")) {
 						Sklep.showSklep(e.getPlayer());
+						System.out.println("test");
 					}
 				}
 			}

@@ -24,6 +24,7 @@ public class Scoreboard {
 	 * @param player
 	 */
 	public static void setScoreboard(Player player) {
+		MineZ.debug("public static void setScoreboard(Player)");
 		if(MineZ.isDyrtCraftXPEnabled()) {
 			// Jezeli plugin DyrtCraftXP jest wlaczony
 			setLocalScoreboardXP(player);

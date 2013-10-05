@@ -1,16 +1,20 @@
 package pl.themolka.minez;
 
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import pl.DyrtCraft.DyrtCraftXP.DyrtCraftPlugin;
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
 
 /**
@@ -23,19 +27,12 @@ import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
 public class MineZ extends JavaPlugin {
 	
 	private static MineZ plugin;
-	private static String version = "Development Build 014";
+	private static String version = "Development Build 015";
 	
 	@Override
 	public void onEnable() {
-		getServer().getPluginManager().registerEvents(new pl.themolka.minez.Sklep(this), this);
-		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.BandazListener(this), this);
-		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.CreatureSpawnListener(this), this);
-		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.Cuboid(this), this);
-		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.EntityDeath(this), this);
-		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.PlayerJoinAndQuitListener(this), this);
-		getServer().getPluginManager().registerEvents(new pl.themolka.minez.SignsManager(this), this);
-		
 		getCommand("minez").setExecutor(new pl.themolka.minez.MineZCommand(this));
+		registerListeners();
 		
 		saveDefaultConfig();
 		
@@ -45,6 +42,20 @@ public class MineZ extends JavaPlugin {
 			getLogger().info("Wykryto plugin DyrtCraftXP wersja " + DyrtCraftXP.getInstance().getVersion() + " by " + DyrtCraftXP.getInstance().getAuthors());
 			getLogger().info("Wspolpraca z pluginem DyrtCraft...");
 		}
+	}
+	
+	/**
+	 * @author TheMolkaPL
+	 * @since Development Build 015
+	 * @param debug
+	 */
+	public static void debug(String msg) {
+		try {
+			if(plugin.getConfig().getBoolean("debug") == true) {
+				Bukkit.getLogger().info("[MineZ] " + msg);
+			}
+			// Debug nie jest wlaczony
+		} catch(NullPointerException ex) { /*Blad pliku config.yml*/ }
 	}
 	
 	public static void disablePorady(Player player) {}
@@ -67,8 +78,12 @@ public class MineZ extends JavaPlugin {
 	 * @return Lista swiatow MineZ
 	 */
 	public static List<String> getMineZWorlds() {
-		List<String> lista_swiatow = plugin.getConfig().getStringList("swiaty-minez");
-		return lista_swiatow;
+		MineZ.debug("public static List<String> getMineZWorlds()");
+		try {
+			List<String> lista_swiatow = plugin.getConfig().getStringList("swiaty-minez");
+			return lista_swiatow;
+		} catch(NullPointerException ex) {}
+		return null;
 	}
 	
 	/**
@@ -77,6 +92,7 @@ public class MineZ extends JavaPlugin {
 	 * @return String - wersja pluginu
 	 */
 	public static String getPluginVersion() {
+		MineZ.debug("public static String getPluginVersion()");
 		return version;
 	}
 	
@@ -87,8 +103,30 @@ public class MineZ extends JavaPlugin {
 	 * @return String - nazwa swiata na ktorym znajduje sie spawn
 	 */
 	public static String getSpawnWorldName() {
-		String spawn_world = plugin.getConfig().getString("swiat-spawn");
-		return spawn_world;
+		MineZ.debug("public static String getSpawnWorldName()");
+		try {
+			String spawn_world = plugin.getConfig().getString("swiat-spawn");
+			return spawn_world;
+		} catch(NullPointerException ex) {
+			if(MineZ.isDyrtCraftXPEnabled()) {
+				DyrtCraftPlugin.sendMsgToOp("Nie znaleziono nazwy swiata spawnu - bledny plik config.yml", 1);
+			}
+		}
+		return null;
+	}
+	
+	public void registerListeners() {
+		MineZ.debug("public void registerListeners()");
+		
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.Sklep(this), this);
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.BandazListener(this), this);
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.CreatureSpawnListener(this), this);
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.Cuboid(this), this);
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.EntityDeath(this), this);
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.PlayerJoinAndQuitListener(this), this);
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.SignsManager(this), this);
+		
+		MineZ.debug("Zarejestrowano listenery");
 	}
 	
 	/**
@@ -98,6 +136,7 @@ public class MineZ extends JavaPlugin {
 	 * @return true Jezeli plugin {@link DyrtCraftXP} jest wlaczony
 	 */
 	public static boolean isDyrtCraftXPEnabled() {
+		MineZ.debug("public static boolean isDyrtCraftXPEnabled()");
 		if(Bukkit.getPluginManager().isPluginEnabled("DyrtCraftXP")) {
 			return true;
 		} else {
@@ -111,6 +150,7 @@ public class MineZ extends JavaPlugin {
 	 * @return true Jezeli chron-spawn jest wlaczone w pliku config.yml
 	 */
 	public static boolean isSpawnProtected() {
+		MineZ.debug("public static boolean isSpawnProtected()");
 		if(plugin.getConfig().getBoolean("chron-spawn") == true) {
 			return true;
 		} else {
@@ -118,11 +158,11 @@ public class MineZ extends JavaPlugin {
 		}
 	}
 	
-	public static boolean isPoradyEnabled(Player player) {
-		return true;
-	}
+	public static boolean isPoradyEnabled(Player player) { return true; }
 	
 	public static void sendStarterKit(Player player) {
+		MineZ.debug("public static void sendStarterKit(Player)");
+		
 		// Drewniany miecz
 		ItemStack miecz = new ItemStack(Material.WOOD_SWORD);
 		ItemMeta mieczMeta = miecz.getItemMeta();
@@ -183,6 +223,8 @@ public class MineZ extends JavaPlugin {
 	}
 	
 	public static void sendStarterVIPKit(Player player) {
+		MineZ.debug("public static void sendStarterVIPKit(Player)");
+		
 		// Kamienny miecz
 		ItemStack miecz = new ItemStack(Material.STONE_SWORD);
 		ItemMeta mieczMeta = miecz.getItemMeta();
@@ -229,6 +271,8 @@ public class MineZ extends JavaPlugin {
 		boots.setItemMeta(bootsMeta);
 		
 		// Dostawanie itemow
+		player.getInventory().addItem(Sklep.getSklepItem());
+		
 		player.getInventory().addItem(miecz);
 		player.getInventory().addItem(butelka);
 		
@@ -258,10 +302,32 @@ public class MineZ extends JavaPlugin {
 	 * @param world Swiat w ktorym player ma zostac zespawnowany
 	 */
 	public static void spawnPlayer(Player player, String world) {
+		MineZ.debug("public static void spawnPlayer(Player, String)");
+		
 		// Randomowa teleportacja na mape
 		/*
 		 * TODO: Randomowa teleportacja
 		 */
+		World swiat = null;
+		int x = (Integer) null;
+		int y = (Integer) null;
+		int z = (Integer) null;
+		Random random = new Random();
+		
+		try {
+			swiat = Bukkit.getWorld(world);
+			x = random.nextInt();
+			y = random.nextInt();
+			z = random.nextInt();
+		} catch(NullPointerException ex) {
+			player.sendMessage(ChatColor.RED + "Nie odnaleziono mapy o nazwie \"" + world + "\"!");
+		}
+		
+		Location location = new Location(swiat, x, y, z);
+		player.teleport(location);
+		
+		// Scoreboard
+		Scoreboard.setScoreboard(player);
 		
 		// Glod
 		player.setFoodLevel(20);

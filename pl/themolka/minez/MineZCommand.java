@@ -97,12 +97,16 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean erArg(CommandSender sender, String er) {
+		MineZ.debug("protected boolean erArg(CommandSender, String)");
+		
 		sender.sendMessage(ChatColor.RED + er);
 		sender.sendMessage(ChatColor.RED + "Uzycie: " + plugin.getCommand("minez").getUsage());
 		return true;
 	}
 	
 	protected boolean aboutArg(CommandSender sender) {
+		MineZ.debug("protected boolean aboutArg(CommandSender)");
+		
 		sender.sendMessage(ChatColor.GOLD + " >==========[ " + ChatColor.BOLD + ChatColor.AQUA + "MineZ" + ChatColor.RESET + ChatColor.GOLD + " ]==========< ");
 		sender.sendMessage(ChatColor.GOLD + "Wersja: " + ChatColor.GRAY + MineZ.getPluginVersion());
 		sender.sendMessage(ChatColor.GOLD + "Autor: " + plugin.getDescription().getAuthors());
@@ -111,6 +115,8 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean erAdminArg(CommandSender sender) {
+		MineZ.debug("protected boolean aboutArg(CommandSender)");
+		
 		if(!(sender.isOp())) {
 			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
 			return true;
@@ -127,6 +133,8 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean kitArg(CommandSender sender) {
+		MineZ.debug("protected boolean kitArg(CommandSender)");
+		
 		if(!(sender.isOp())) {
 			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
 			return true;
@@ -142,6 +150,8 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean kitVIPArg(CommandSender sender) {
+		MineZ.debug("protected boolean kitVIPArg(CommandSender)");
+		
 		if(!(sender.isOp())) {
 			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
 			return true;
@@ -157,6 +167,8 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean pomocArg(CommandSender sender) {
+		MineZ.debug("protected boolean pomocArg(CommandSender)");
+		
 		sender.sendMessage(ChatColor.GOLD + "========== Pomoc ==========");
 		sender.sendMessage(ChatColor.GRAY + "Witaj na serwerze MineZ DyrtCraft Network!");
 		sender.sendMessage(ChatColor.GRAY + "Aby rozpoczac gre uzyj komendy /minez spawn!");
@@ -164,6 +176,8 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean reloadArg(CommandSender sender) {
+		MineZ.debug("protected boolean reloadArg(CommandSender)");
+		
 		if(!(sender.isOp())) {
 			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
 			return true;
@@ -182,6 +196,8 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean sklepArg(CommandSender sender) {
+		MineZ.debug("protected boolean sklepArg(CommandSender)");
+		
 		if(!(sender.isOp())) {
 			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
 			return true;
@@ -196,6 +212,8 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean spawnArg(CommandSender sender, String world) {
+		MineZ.debug("protected boolean spawnArg(CommandSender, String)");
+		
 		if(!(sender instanceof Player)) {
 			sender.sendMessage(ChatColor.RED + "Nie mozesz wykonac tej komendy z poziomu konsoli!");
 			return true;
@@ -210,6 +228,8 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean staffArg(CommandSender sender) {
+		MineZ.debug("protected boolean staffArg(CommandSender)");
+		
 		Object lista = pjaql.administracja_online.toArray();
 		
 		sender.sendMessage(ChatColor.GOLD + "Lista administracji online:");

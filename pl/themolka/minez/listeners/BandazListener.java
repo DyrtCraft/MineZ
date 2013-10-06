@@ -49,10 +49,8 @@ public class BandazListener implements Listener {
 						e.getPlayer().sendMessage(ChatColor.GRAY + "Czesc, wlasnie uleczyles sie bandazem!");
 						e.getPlayer().sendMessage(ChatColor.GRAY + "Bandaz to przydatny item podczas ostrej walki, gdy potrzebujesz szybkiego wyleczenia.");
 						e.getPlayer().sendMessage(ChatColor.GRAY + "Niestety jest to przedmiot dosc ciezki do zdobycia :(");
-						
-						XP.addXp(e.getPlayer(), 3, "Uleczyles sie bandazem");
 					}
-					XP.addXp(e.getPlayer(), 3, "Uleczyles sie bandazem");
+					XP.addXp(e.getPlayer(), 5, "Uleczyles sie bandazem");
 				}
 			}
 		} catch(NullPointerException ex) {}

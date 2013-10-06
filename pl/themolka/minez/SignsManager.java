@@ -45,19 +45,33 @@ public class SignsManager implements Listener {
 	}
 	
 	@EventHandler
-	public void onPlayerInteract(PlayerInteractEvent e) {
+	public void onPlayerInteractOnSignShop(PlayerInteractEvent e) {
+		try {
+			if(!(e.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
+			if(e.getClickedBlock().getState() instanceof Sign) {
+				Sign s = (Sign) e.getClickedBlock().getState();
+				if(s.getLine(0).equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "MineZ")) {
+					if(s.getLine(1).equalsIgnoreCase(ChatColor.AQUA + "Sklep")) {
+						MineZ.debug("public void onPlayerInteractOnSignShop(PlayerInteractEvent)");
+						
+						Sklep.showSklep(e.getPlayer());
+					}
+				}
+			}
+		} catch(NullPointerException ex) {}
+	}
+	
+	@EventHandler
+	public void onPlayerInteractOnSignJoin(PlayerInteractEvent e) {
 		try {
 			if(!(e.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
 			if(e.getClickedBlock().getState() instanceof Sign) {
 				Sign s = (Sign) e.getClickedBlock().getState();
 				if(s.getLine(0).equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "MineZ")) {
 					if(s.getLine(1).equalsIgnoreCase(ChatColor.AQUA + "Graj na mapie:")) {
+						MineZ.debug("public void onPlayerInteractOnSignShop(PlayerInteractEvent)");
+						
 						MineZ.spawnPlayer(e.getPlayer(), s.getLine(2));
-						System.out.println("test");
-					}
-					else if(s.getLine(1).equalsIgnoreCase(ChatColor.AQUA + "Sklep")) {
-						Sklep.showSklep(e.getPlayer());
-						System.out.println("test");
 					}
 				}
 			}

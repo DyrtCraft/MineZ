@@ -27,14 +27,14 @@ import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
 public class MineZ extends JavaPlugin {
 	
 	private static MineZ plugin;
-	private static String version = "Development Build 015";
+	private static String version = "Development Build 016";
 	
 	@Override
 	public void onEnable() {
+		saveDefaultConfig();
+		
 		getCommand("minez").setExecutor(new pl.themolka.minez.MineZCommand(this));
 		registerListeners();
-		
-		saveDefaultConfig();
 		
 		if(!(MineZ.isDyrtCraftXPEnabled())) {
 			getLogger().warning("Do pelnego dzialania tego pluginu potrzeby jest plugin DyrtCraftXP!");
@@ -51,10 +51,8 @@ public class MineZ extends JavaPlugin {
 	 */
 	public static void debug(String msg) {
 		try {
-			if(plugin.getConfig().getBoolean("debug") == true) {
-				Bukkit.getLogger().info("[MineZ] " + msg);
-			}
-			// Debug nie jest wlaczony
+			//if(plugin.getConfig().getBoolean("debug") == false) { /*Debug jest wlaczony*/ }
+			Bukkit.getLogger().info("[MineZ] " + msg);
 		} catch(NullPointerException ex) { /*Blad pliku config.yml*/ }
 	}
 	
@@ -123,7 +121,9 @@ public class MineZ extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.CreatureSpawnListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.Cuboid(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.EntityDeath(this), this);
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.ExpAndLevelChangeListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.PlayerJoinAndQuitListener(this), this);
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.WodaListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.SignsManager(this), this);
 		
 		MineZ.debug("Zarejestrowano listenery");
@@ -325,6 +325,10 @@ public class MineZ extends JavaPlugin {
 		
 		Location location = new Location(swiat, x, y, z);
 		player.teleport(location);
+		
+		// Exp & Lvl
+		player.setExp(9);
+		player.setLevel(20);
 		
 		// Scoreboard
 		Scoreboard.setScoreboard(player);

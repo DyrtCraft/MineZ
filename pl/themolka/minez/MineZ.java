@@ -12,6 +12,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftPlugin;
@@ -27,7 +28,7 @@ import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
 public class MineZ extends JavaPlugin {
 	
 	private static MineZ plugin;
-	private static String version = "Development Build 016";
+	private static String version = "Development Build 017";
 	
 	@Override
 	public void onEnable() {
@@ -113,6 +114,15 @@ public class MineZ extends JavaPlugin {
 		return null;
 	}
 	
+	public static ItemStack head(String owner) {
+		ItemStack head = new ItemStack(Material.SKULL_ITEM, 1);
+		SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+		headMeta.setDisplayName(ChatColor.GOLD + "Glowa gracza " + owner);
+		headMeta.setOwner(owner);
+		head.setItemMeta(headMeta);
+		return head;
+	}
+	
 	public void registerListeners() {
 		MineZ.debug("public void registerListeners()");
 		
@@ -120,7 +130,7 @@ public class MineZ extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.BandazListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.CreatureSpawnListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.Cuboid(this), this);
-		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.EntityDeath(this), this);
+		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.EntityDeathListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.ExpAndLevelChangeListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.PlayerJoinAndQuitListener(this), this);
 		getServer().getPluginManager().registerEvents(new pl.themolka.minez.listeners.WodaListener(this), this);

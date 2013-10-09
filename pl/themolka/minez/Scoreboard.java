@@ -45,7 +45,7 @@ public class Scoreboard {
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 		
 		// XP
-		int ilosc_xp = XP.getXp(player);
+		int ilosc_xp = XP.getXp(player.toString());
 		Score xp = obj.getScore(Bukkit.getOfflinePlayer("§6Ilosc XP"));
 		xp.setScore(ilosc_xp);
 		

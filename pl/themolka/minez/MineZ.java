@@ -28,7 +28,7 @@ import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
 public class MineZ extends JavaPlugin {
 	
 	private static MineZ plugin;
-	private static String version = "Development Build 017";
+	private static String version = "Development Build 018";
 	
 	@Override
 	public void onEnable() {

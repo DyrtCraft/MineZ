@@ -56,8 +56,8 @@ public class Sklep implements Listener {
 	 * @param player Gracz dla ktorego ma zostac wyswietlony sklep
 	 */
 	public static void showSklep(Player player) {
-		MineZ.debug("public static void showSklep(Player)");
-		if(MineZ.isDyrtCraftXPEnabled()) {
+		API.debug("public static void showSklep(Player)");
+		if(API.isDyrtCraftXPEnabled()) {
 			player.openInventory(inv);
 		} else {
 			player.sendMessage(ChatColor.RED + "Do poprawnego dzialania sklepu wymagany jest plugin DyrtCraftXP!");
@@ -70,7 +70,7 @@ public class Sklep implements Listener {
 	 * @return Emerald - sklep
 	 */
 	public static ItemStack getSklepItem() {
-		MineZ.debug("public static ItemStack getSklepItem()");
+		API.debug("public static ItemStack getSklepItem()");
 		
 		ItemStack item = new ItemStack(Material.EMERALD);
 		ItemMeta itemMeta = item.getItemMeta();
@@ -90,8 +90,8 @@ public class Sklep implements Listener {
 	}
 	
 	protected void buyItem(Player player, Material material, String name, int cost) {
-		MineZ.debug("protected void buyItem(Player, Material, String, int)");
-		if(MineZ.isDyrtCraftXPEnabled()) {
+		API.debug("protected void buyItem(Player, Material, String, int)");
+		if(API.isDyrtCraftXPEnabled()) {
 			XP.delXp(player, cost, "Zakup w sklepie itemu: " + name);
 			
 			ItemStack item = new ItemStack(material);
@@ -123,43 +123,44 @@ public class Sklep implements Listener {
 		try {
 			Player player = (Player) e.getWhoClicked();
 			
-			if((e.getInventory().getName().equalsIgnoreCase(inv.getName()))) {
-				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Drewniany Miecz")) {
-					e.setCancelled(true);
-					buyItem(player, Material.WOOD_SWORD, "Drewniany Miecz", 10);
-					player.closeInventory();
-				}
-				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Kamienny miecz")) {
-					e.setCancelled(true);
-					buyItem(player, Material.STONE_SWORD, "Kamienny miecz", 20);
-					player.closeInventory();
-				}
-				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Woda")) {
-					e.setCancelled(true);
-					buyItem(player, Material.getMaterial(373), "Woda", 60);
-					player.closeInventory();
-				}
-				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Bandaz")) {
-					e.setCancelled(true);
-					buyItem(player, Material.PAPER, "Bandaz", 70);
-					player.closeInventory();
-				}
-				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Zegarek")) {
-					e.setCancelled(true);
-					buyItem(player, Material.getMaterial(347), "Zegarek", 50);
-					player.closeInventory();
-				}
-				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Melon")) {
-					e.setCancelled(true);
-					buyItem(player, Material.MELON, "Melon", 40);
-					player.closeInventory();
-				}
-				if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Chleb")) {
-					e.setCancelled(true);
-					buyItem(player, Material.BREAD, "Chleb", 55);
-					player.closeInventory();
-				}
+			if(!e.getInventory().getName().equalsIgnoreCase(inv.getName())) return;
+			
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Drewniany Miecz")) {
+				e.setCancelled(true);
+				buyItem(player, Material.WOOD_SWORD, "Drewniany Miecz", 10);
+				player.closeInventory();
 			}
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Kamienny miecz")) {
+				e.setCancelled(true);
+				buyItem(player, Material.STONE_SWORD, "Kamienny miecz", 20);
+				player.closeInventory();
+			}
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Woda")) {
+				e.setCancelled(true);
+				buyItem(player, Material.getMaterial(373), "Woda", 60);
+				player.closeInventory();
+			}
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Bandaz")) {
+				e.setCancelled(true);
+				buyItem(player, Material.PAPER, "Bandaz", 70);
+				player.closeInventory();
+			}
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Zegarek")) {
+				e.setCancelled(true);
+				buyItem(player, Material.getMaterial(347), "Zegarek", 50);
+				player.closeInventory();
+			}
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Melon")) {
+				e.setCancelled(true);
+				buyItem(player, Material.MELON, "Melon", 40);
+				player.closeInventory();
+			}
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Chleb")) {
+				e.setCancelled(true);
+				buyItem(player, Material.BREAD, "Chleb", 55);
+				player.closeInventory();
+			}
+
 		} catch(NullPointerException ex) {}
 	}
 	

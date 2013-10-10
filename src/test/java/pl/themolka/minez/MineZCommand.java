@@ -97,7 +97,7 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean erArg(CommandSender sender, String er) {
-		MineZ.debug("protected boolean erArg(CommandSender, String)");
+		API.debug("protected boolean erArg(CommandSender, String)");
 		
 		sender.sendMessage(ChatColor.RED + er);
 		sender.sendMessage(ChatColor.RED + "Uzycie: " + plugin.getCommand("minez").getUsage());
@@ -105,17 +105,17 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean aboutArg(CommandSender sender) {
-		MineZ.debug("protected boolean aboutArg(CommandSender)");
+		API.debug("protected boolean aboutArg(CommandSender)");
 		
 		sender.sendMessage(ChatColor.GOLD + " >==========[ " + ChatColor.BOLD + ChatColor.AQUA + "MineZ" + ChatColor.RESET + ChatColor.GOLD + " ]==========< ");
-		sender.sendMessage(ChatColor.GOLD + "Wersja: " + ChatColor.GRAY + MineZ.getPluginVersion());
-		sender.sendMessage(ChatColor.GOLD + "Autor: " + plugin.getDescription().getAuthors());
+		sender.sendMessage(ChatColor.GOLD + "Wersja: " + ChatColor.GRAY + API.getPlugin().getVersion());
+		sender.sendMessage(ChatColor.GOLD + "Autor: " + ChatColor.GRAY + API.getPlugin().getAuthors());
 		sender.sendMessage(ChatColor.GOLD + " >==========[ " + ChatColor.BOLD + ChatColor.AQUA + "MineZ" + ChatColor.RESET + ChatColor.GOLD + " ]==========< ");
 		return true;
 	}
 	
 	protected boolean erAdminArg(CommandSender sender) {
-		MineZ.debug("protected boolean aboutArg(CommandSender)");
+		API.debug("protected boolean aboutArg(CommandSender)");
 		
 		if(!(sender.isOp())) {
 			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
@@ -133,7 +133,7 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean kitArg(CommandSender sender) {
-		MineZ.debug("protected boolean kitArg(CommandSender)");
+		API.debug("protected boolean kitArg(CommandSender)");
 		
 		if(!(sender.isOp())) {
 			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
@@ -144,13 +144,13 @@ public class MineZCommand implements CommandExecutor {
 			return true;
 		}
 		Player player = (Player) sender;
-		MineZ.sendStarterKit(player);
+		API.sendStarterKit(player);
 		sender.sendMessage(ChatColor.GRAY + "Otrzymanie startowego kitu.");
 		return true;
 	}
 	
 	protected boolean kitVIPArg(CommandSender sender) {
-		MineZ.debug("protected boolean kitVIPArg(CommandSender)");
+		API.debug("protected boolean kitVIPArg(CommandSender)");
 		
 		if(!(sender.isOp())) {
 			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
@@ -161,13 +161,13 @@ public class MineZCommand implements CommandExecutor {
 			return true;
 		}
 		Player player = (Player) sender;
-		MineZ.sendStarterVIPKit(player);
+		API.sendStarterVIPKit(player);
 		sender.sendMessage(ChatColor.GRAY + "Otrzymanie startowego kitu dla VIP.");
 		return true;
 	}
 	
 	protected boolean pomocArg(CommandSender sender) {
-		MineZ.debug("protected boolean pomocArg(CommandSender)");
+		API.debug("protected boolean pomocArg(CommandSender)");
 		
 		sender.sendMessage(ChatColor.GOLD + "========== Pomoc ==========");
 		sender.sendMessage(ChatColor.GRAY + "Witaj na serwerze MineZ DyrtCraft Network!");
@@ -176,13 +176,13 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean reloadArg(CommandSender sender) {
-		MineZ.debug("protected boolean reloadArg(CommandSender)");
+		API.debug("protected boolean reloadArg(CommandSender)");
 		
 		if(!(sender.isOp())) {
 			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
 			return true;
 		} else {
-			if(MineZ.isDyrtCraftXPEnabled()) {
+			if(API.isDyrtCraftXPEnabled()) {
 				DyrtCraftPlugin.sendMsgToOp(sender.getName() + " przeladowyuje plik config.yml", 0);
 				plugin.reloadConfig();
 				DyrtCraftPlugin.sendMsgToOp(sender.getName() + " przeladowal plik config.yml", 0);
@@ -196,7 +196,7 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean sklepArg(CommandSender sender) {
-		MineZ.debug("protected boolean sklepArg(CommandSender)");
+		API.debug("protected boolean sklepArg(CommandSender)");
 		
 		if(!(sender.isOp())) {
 			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
@@ -212,23 +212,23 @@ public class MineZCommand implements CommandExecutor {
 	}
 	
 	protected boolean spawnArg(CommandSender sender, String world) {
-		MineZ.debug("protected boolean spawnArg(CommandSender, String)");
+		API.debug("protected boolean spawnArg(CommandSender, String)");
 		
 		if(!(sender instanceof Player)) {
 			sender.sendMessage(ChatColor.RED + "Nie mozesz wykonac tej komendy z poziomu konsoli!");
 			return true;
 		}
 		Player player = (Player) sender;
-		if(!(player.getLocation().getWorld().toString() == MineZ.getSpawnWorldName())) {
+		if(!(player.getLocation().getWorld().toString() == API.getSpawnWorldName())) {
 			player.sendMessage(ChatColor.RED + "Nie mozesz rozpoczac nowej rozgrywki, jezeli obecnie jestes w grze!");
 			return true;
 		}
-		MineZ.spawnPlayer(player, world);
+		API.spawnPlayer(player, world);
 		return true;
 	}
 	
 	protected boolean staffArg(CommandSender sender) {
-		MineZ.debug("protected boolean staffArg(CommandSender)");
+		API.debug("protected boolean staffArg(CommandSender)");
 		
 		Object lista = pjaql.administracja_online.toArray();
 		

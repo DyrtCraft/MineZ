@@ -52,7 +52,7 @@ public class SignsManager implements Listener {
 				Sign s = (Sign) e.getClickedBlock().getState();
 				if(s.getLine(0).equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "MineZ")) {
 					if(s.getLine(1).equalsIgnoreCase(ChatColor.AQUA + "Sklep")) {
-						MineZ.debug("public void onPlayerInteractOnSignShop(PlayerInteractEvent)");
+						API.debug("public void onPlayerInteractOnSignShop(PlayerInteractEvent)");
 						
 						Sklep.showSklep(e.getPlayer());
 					}
@@ -69,9 +69,9 @@ public class SignsManager implements Listener {
 				Sign s = (Sign) e.getClickedBlock().getState();
 				if(s.getLine(0).equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "MineZ")) {
 					if(s.getLine(1).equalsIgnoreCase(ChatColor.AQUA + "Graj na mapie:")) {
-						MineZ.debug("public void onPlayerInteractOnSignShop(PlayerInteractEvent)");
+						API.debug("public void onPlayerInteractOnSignShop(PlayerInteractEvent)");
 						
-						MineZ.spawnPlayer(e.getPlayer(), s.getLine(2));
+						API.spawnPlayer(e.getPlayer(), s.getLine(2));
 					}
 				}
 			}

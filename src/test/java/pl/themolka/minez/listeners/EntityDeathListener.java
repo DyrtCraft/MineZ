@@ -11,6 +11,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.EntityEquipment;
 
 import pl.DyrtCraft.DyrtCraftXP.api.XP;
+import pl.themolka.minez.API;
 import pl.themolka.minez.MineZ;
 
 public class EntityDeathListener implements Listener {
@@ -24,10 +25,10 @@ public class EntityDeathListener implements Listener {
 	
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
-		Entity dedacz = e.getEntity();
-		Entity zabijajacy = e.getDamager();
+		Entity dedacz = e.getDamager();
+		Entity zabijajacy = e.getEntity();
 		
-		if(MineZ.isDyrtCraftXPEnabled()) {
+		if(API.isDyrtCraftXPEnabled()) {
 			// Zombie (wyg) vs Player (przeg)
 			if(zabijajacy instanceof Zombie && dedacz instanceof Player && dedacz !=null) {
 				if(dedacz.isDead()) {
@@ -35,7 +36,7 @@ public class EntityDeathListener implements Listener {
 					String dedaczName = dedaczPlayer.getName();
 					EntityEquipment ee = zombie.getEquipment();
 					
-					ee.setHelmet(MineZ.head(dedaczName)); // Ustawianie glowy gracza dla Zombie
+					ee.setHelmet(API.head(dedaczName)); // Ustawianie glowy gracza dla Zombie
 				}
 			}
 		} else {
@@ -52,14 +53,16 @@ public class EntityDeathListener implements Listener {
 		Entity dedacz = e.getEntity();
 		Entity zabijajacy = e.getEntity().getKiller();
 		
-		if(MineZ.isDyrtCraftXPEnabled()) {
+		if(API.isDyrtCraftXPEnabled()) {
 			// Player (wyg) vs Player (przeg) & Player (przeg) vs Player (wyg)
 			if(dedacz instanceof Player && zabijajacy != null) {
 				Player dedaczPlayer = (Player) dedacz;
 				Player zabijajacyPlayer = (Player) zabijajacy;
 				
 				XP.addXp(zabijajacyPlayer, 7, "Zabito gracza " + dedaczPlayer.getName());
+				zabijajacyPlayer.sendMessage(XP.showXp(zabijajacyPlayer.getName()));
 				XP.delXp(dedaczPlayer, 7, "Smierc przez gracza " + zabijajacyPlayer.getName());
+				dedaczPlayer.sendMessage(XP.showXp(dedaczPlayer.getName()));
 				return;
 			}
 			// Player (wyg) vs Zombie (przeg)

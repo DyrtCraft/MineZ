@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import pl.DyrtCraft.DyrtCraftXP.api.XP;
+import pl.themolka.minez.API;
 import pl.themolka.minez.MineZ;
 import pl.themolka.minez.Sklep;
 
@@ -44,7 +45,7 @@ public class BandazListener implements Listener {
 					e.getPlayer().setHealth(20.0);
 					
 					// Porada
-					if(MineZ.isPoradyEnabled(e.getPlayer())) {
+					if(API.isPoradyEnabled(e.getPlayer())) {
 						e.getPlayer().sendMessage(ChatColor.GOLD + "========== Porada ==========");
 						e.getPlayer().sendMessage(ChatColor.GRAY + "Czesc, wlasnie uleczyles sie bandazem!");
 						e.getPlayer().sendMessage(ChatColor.GRAY + "Bandaz to przydatny item podczas ostrej walki, gdy potrzebujesz szybkiego wyleczenia.");

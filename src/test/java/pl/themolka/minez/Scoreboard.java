@@ -24,10 +24,14 @@ public class Scoreboard {
 	 * @param player
 	 */
 	public static void setScoreboard(Player player) {
-		MineZ.debug("public static void setScoreboard(Player)");
-		if(MineZ.isDyrtCraftXPEnabled()) {
-			// Jezeli plugin DyrtCraftXP jest wlaczony
-			setLocalScoreboardXP(player);
+		API.debug("public static void setScoreboard(Player)");
+		if(API.isDyrtCraftXPEnabled()) {
+			try {
+				// Jezeli plugin DyrtCraftXP jest wlaczony
+				setLocalScoreboardXP(player);
+			} catch(Exception ex) {
+				setLocalScoreboard(player);
+			}
 		} else {
 			// Jezeli plugin DyrtCraftXP jest wylaczony
 			setLocalScoreboard(player);

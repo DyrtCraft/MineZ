@@ -1,7 +1,18 @@
+# Konfiguracja pluginu MineZ dla DyrtCraft Network.
+# Plugin zostal napisany przez TheMolkaPL (themolkapl@gmail.com)
+
+# Chron spawn przed niszczeniem, spawnowanie mobow, itd.
 chron-spawn: true
-debug: true
+# Zapisuj w konsoli wykonywane metody w pluginie
+# WAZNE: Zalecane tylko dla developerow!
+debug: false
+# Nazwa swiata w ktorym znajdowac sie bedzie Lobby
 swiat-spawn: Spawn
+# Lista swiatow, ktore beda uznawane za mape MineZ
 swiaty-minez:
     - Alfa
     - Beta
     - Gamma
+# WAZNE: NIE DOTYKAJ!!!
+CONFIG-TOKEN: 414735131
+# WAZNE: NIE DOTYKAJ!!!

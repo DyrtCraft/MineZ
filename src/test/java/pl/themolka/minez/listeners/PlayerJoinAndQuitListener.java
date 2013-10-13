@@ -30,7 +30,6 @@ public class PlayerJoinAndQuitListener implements Listener {
 		if(e.getPlayer().isOp()) {
 			if(API.isDyrtCraftXPEnabled()) {
 				DyrtCraftPlugin.sendMsgToOp(e.getPlayer().getName() + " dolaczyl na serwer", 0);
-				return;
 			}
 			administracja_online.add(e.getPlayer().getName());
 			return;
@@ -38,9 +37,7 @@ public class PlayerJoinAndQuitListener implements Listener {
 		if(API.isDyrtCraftXPEnabled()) {
 			if(e.getPlayer().hasPermission("minez.vip")) {
 				e.getPlayer().getInventory().addItem(Sklep.getSklepItem());
-				return;
 			}
-			return;
 		}
 		e.getPlayer().setGameMode(GameMode.ADVENTURE);
 	}
@@ -51,14 +48,12 @@ public class PlayerJoinAndQuitListener implements Listener {
 		if(e.getPlayer().isOp()) {
 			if(API.isDyrtCraftXPEnabled()) {
 				DyrtCraftPlugin.sendMsgToOp(e.getPlayer().getName() + " wyszedl z serwera", 0);
-				return;
 			}
 			administracja_online.remove(e.getPlayer().getName());
 			return;
 		}
 		if(API.isDyrtCraftXPEnabled()) {
 			e.getPlayer().getInventory().remove(Sklep.getSklepItem());
-			return;
 		}
 		if(plugin.getServer().getOnlinePlayers().length == 0) {
 			administracja_online.removeAll(administracja_online);

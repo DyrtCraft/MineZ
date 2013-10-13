@@ -2,6 +2,7 @@ package pl.themolka.minez;
 
 import java.util.Arrays;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -31,7 +32,7 @@ public class Sklep implements Listener {
 	public Sklep(MineZ mineZ) {
 		plugin = mineZ;
 		
-		inv = plugin.getServer().createInventory(null, 45, ChatColor.RED + "Sklep " + ChatColor.GOLD + "MineZ");
+		inv = Bukkit.createInventory(null, 45, ChatColor.RED + "Sklep " + ChatColor.GOLD + "MineZ");
 		
 		drewniany_miecz = cretateItem(Material.WOOD_SWORD, "Drewniany Miecz", "Najlepszy na poczatek", 10);
 		kamienny_miecz = cretateItem(Material.STONE_SWORD, "Kamienny miecz", "Podstawowa bron", 20);

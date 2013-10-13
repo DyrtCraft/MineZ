@@ -28,7 +28,7 @@ public class Scoreboard {
 		if(API.isDyrtCraftXPEnabled()) {
 			try {
 				// Jezeli plugin DyrtCraftXP jest wlaczony
-				setLocalScoreboardXP(player);
+				setLocalScoreboard(player);
 			} catch(Exception ex) {
 				setLocalScoreboard(player);
 			}
@@ -38,7 +38,7 @@ public class Scoreboard {
 		}
 	}
 	
-	public static void setLocalScoreboardXP(Player player) {
+	public static void setLocalScoreboardXP(Player player) throws NoSuchMethodException {
 		player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
 		
 		ScoreboardManager sm = Bukkit.getScoreboardManager();
@@ -48,7 +48,6 @@ public class Scoreboard {
 		obj.setDisplayName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "MineZ");
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 		
-		// XP
 		int ilosc_xp = XP.getXp(player.toString());
 		Score xp = obj.getScore(Bukkit.getOfflinePlayer("§6Ilosc XP"));
 		xp.setScore(ilosc_xp);

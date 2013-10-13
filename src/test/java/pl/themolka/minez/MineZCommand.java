@@ -1,5 +1,7 @@
 package pl.themolka.minez;
 
+import java.util.List;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -219,10 +221,10 @@ public class MineZCommand implements CommandExecutor {
 			return true;
 		}
 		Player player = (Player) sender;
-		if(!(player.getLocation().getWorld().toString() == API.getSpawnWorldName())) {
+		/*if(!(player.getLocation().getWorld().toString() == API.getSpawnWorldName())) {
 			player.sendMessage(ChatColor.RED + "Nie mozesz rozpoczac nowej rozgrywki, jezeli obecnie jestes w grze!");
 			return true;
-		}
+		}*/
 		API.spawnPlayer(player, world);
 		return true;
 	}
@@ -230,11 +232,21 @@ public class MineZCommand implements CommandExecutor {
 	protected boolean staffArg(CommandSender sender) {
 		API.debug("protected boolean staffArg(CommandSender)");
 		
-		Object lista = pjaql.administracja_online.toArray();
+		List<String> lista = pjaql.administracja_online;
+		StringBuilder adminiList = new StringBuilder();
+		for(String admini : lista) {
+			adminiList.append(admini.getBytes());
+			adminiList.append(", ");
+		}
 		
-		sender.sendMessage(ChatColor.GOLD + "Lista administracji online:");
-		sender.sendMessage(ChatColor.GRAY + lista.toString());
-		return true;
+		if(lista.isEmpty()) {
+			sender.sendMessage(ChatColor.GOLD + "Obecnie nikt z administracji nie jest online! :(");
+			return true;
+		} else {
+			sender.sendMessage(ChatColor.GOLD + "Lista administracji online:");
+			sender.sendMessage(ChatColor.GRAY + adminiList.toString());
+			return true;
+		}
 	}
 	
 }

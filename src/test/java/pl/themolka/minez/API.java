@@ -16,14 +16,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftPlugin;
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
-import pl.themolka.minez.listeners.BandazListener;
-import pl.themolka.minez.listeners.CreatureSpawnListener;
-import pl.themolka.minez.listeners.Cuboid;
-import pl.themolka.minez.listeners.EntityDeathListener;
-import pl.themolka.minez.listeners.ExpAndLevelChangeListener;
-import pl.themolka.minez.listeners.PlayerJoinAndQuitListener;
-import pl.themolka.minez.listeners.PlayerMoveListener;
-import pl.themolka.minez.listeners.WodaListener;
 
 /**
  * @author TheMolkaPL
@@ -40,6 +32,22 @@ public class API extends MineZ {
 	
 	public API(MineZ mineZ) {
 		plugin = mineZ;
+	}
+	
+	/**
+	 * @author TheMolkaPL
+	 * @since Development Build 020
+	 * @see MineZ#getConfig()
+	 * @see MineZ#getConfigToken()
+	 * @return true Jezeli haslo token jest prawdziwe
+	 */
+	public static boolean checkConfigToken() {
+		API.debug("public static boolean checkConfigToken()");
+		if(API.getInstance().getConfigToken() == API.getInstance().getConfig().getInt("CONFIG-TOKEN")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
@@ -144,23 +152,6 @@ public class API extends MineZ {
 		headMeta.setOwner(owner);
 		head.setItemMeta(headMeta);
 		return head;
-	}
-	
-	public static void registerListeners() {
-		API.debug("public void registerListeners()");
-		
-		Bukkit.getPluginManager().registerEvents(new Sklep(plugin), plugin);
-		Bukkit.getPluginManager().registerEvents(new BandazListener(plugin), plugin);
-		Bukkit.getPluginManager().registerEvents(new CreatureSpawnListener(plugin), plugin);
-		Bukkit.getPluginManager().registerEvents(new Cuboid(plugin), plugin);
-		Bukkit.getPluginManager().registerEvents(new EntityDeathListener(plugin), plugin);
-		Bukkit.getPluginManager().registerEvents(new ExpAndLevelChangeListener(plugin), plugin);
-		Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuitListener(plugin), plugin);
-		Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(plugin), plugin);
-		Bukkit.getPluginManager().registerEvents(new WodaListener(plugin), plugin);
-		Bukkit.getPluginManager().registerEvents(new SignsManager(plugin), plugin);
-		
-		API.debug("Zarejestrowano listenery");
 	}
 	
 	/**
@@ -342,7 +333,7 @@ public class API extends MineZ {
 		/*
 		 * TODO: Randomowa teleportacja
 		 */
-		World swiat = null;
+		/*World swiat = null;
 		int x = (Integer) null;
 		int y = (Integer) null;
 		int z = (Integer) null;
@@ -358,6 +349,8 @@ public class API extends MineZ {
 		}
 		
 		Location location = new Location(swiat, x, y, z);
+		player.teleport(location);*/
+		Location location = new Location(Bukkit.getWorld(world), 0, 64, 0);
 		player.teleport(location);
 		
 		// Exp & Lvl
@@ -382,8 +375,10 @@ public class API extends MineZ {
 		// Itemy
 		if(player.hasPermission("minez.vip") || player.isOp()) {
 			API.sendStarterVIPKit(player);
+			return;
 		} else {
 			API.sendStarterKit(player);
+			return;
 		}
 	}
 	

@@ -12,6 +12,10 @@ public class SignsManager implements Listener {
 
 	MineZ plugin;
 	
+	String alfa = "Alfa";
+	String beta = "Beta";
+	String gamma = "Gamma";
+	
 	public SignsManager(MineZ mineZ) {
 		plugin = mineZ;
 	}
@@ -23,55 +27,59 @@ public class SignsManager implements Listener {
 				e.getBlock().breakNaturally();
 				e.setCancelled(true);
 				e.getPlayer().sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
+				return;
 			} else {
 				if(e.getLine(1).equalsIgnoreCase("Graj")) {
 					e.setLine(0, ChatColor.DARK_GREEN + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "MineZ");
-					e.setLine(1, ChatColor.AQUA + "Graj na mapie:");
+					e.setLine(1, ChatColor.AQUA + "Graj na mapie");
 					e.setLine(2, ChatColor.DARK_RED + "" + ChatColor.BOLD + e.getLine(2));
 					e.setLine(3, "");
+					return;
 				}
 				else if(e.getLine(1).equalsIgnoreCase("Sklep")) {
 					e.setLine(0, ChatColor.DARK_GREEN + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "MineZ");
 					e.setLine(1, ChatColor.AQUA + "Sklep");
 					e.setLine(2, "");
 					e.setLine(3, "");
+					return;
 				} else {
 					e.getBlock().breakNaturally();
 					e.setCancelled(true);
 					e.getPlayer().sendMessage(ChatColor.RED + "Bledny argument!");
+					return;
 				}
 			}
 		}
 	}
 	
 	@EventHandler
-	public void onPlayerInteractOnSignShop(PlayerInteractEvent e) {
+	public void onPlayerInteract(PlayerInteractEvent e) {
 		try {
+			API.debug("public void onPlayerInteract(PlayerInteractEvent)");
+			
 			if(!(e.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
 			if(e.getClickedBlock().getState() instanceof Sign) {
 				Sign s = (Sign) e.getClickedBlock().getState();
 				if(s.getLine(0).equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "MineZ")) {
 					if(s.getLine(1).equalsIgnoreCase(ChatColor.AQUA + "Sklep")) {
-						API.debug("public void onPlayerInteractOnSignShop(PlayerInteractEvent)");
-						
 						Sklep.showSklep(e.getPlayer());
+						return;
 					}
-				}
-			}
-		} catch(NullPointerException ex) {}
-	}
-	
-	@EventHandler
-	public void onPlayerInteractOnSignJoin(PlayerInteractEvent e) {
-		try {
-			if(!(e.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
-			if(e.getClickedBlock().getState() instanceof Sign) {
-				Sign s = (Sign) e.getClickedBlock().getState();
-				if(s.getLine(0).equalsIgnoreCase(ChatColor.DARK_GREEN + "" + ChatColor.UNDERLINE + "" + ChatColor.BOLD + "MineZ")) {
-					if(s.getLine(1).equalsIgnoreCase(ChatColor.AQUA + "Graj na mapie:")) {
-						API.debug("public void onPlayerInteractOnSignShop(PlayerInteractEvent)");
-						
-						API.spawnPlayer(e.getPlayer(), s.getLine(2));
+					if(s.getLine(1).equalsIgnoreCase(ChatColor.AQUA + "Graj na mapie")) {
+						if(s.getLine(2).equalsIgnoreCase(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Alfa")) {
+							API.spawnPlayer(e.getPlayer(), alfa);
+							return;
+						} else {
+							if(s.getLine(2).equalsIgnoreCase(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Alfa")) {
+								API.spawnPlayer(e.getPlayer(), beta);
+								return;
+							} else {
+								if(s.getLine(2).equalsIgnoreCase(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Alfa")) {
+									API.spawnPlayer(e.getPlayer(), gamma);
+									return;
+								}
+							}
+						}
 					}
 				}
 			}

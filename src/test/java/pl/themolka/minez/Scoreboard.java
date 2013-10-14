@@ -48,6 +48,7 @@ public class Scoreboard {
 		obj.setDisplayName(ChatColor.DARK_GREEN + "" + ChatColor.BOLD + "MineZ");
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 		
+		// XP
 		int ilosc_xp = XP.getXp(player.toString());
 		Score xp = obj.getScore(Bukkit.getOfflinePlayer("§6Ilosc XP"));
 		xp.setScore(ilosc_xp);

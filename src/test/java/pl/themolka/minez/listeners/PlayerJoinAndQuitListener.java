@@ -25,13 +25,15 @@ public class PlayerJoinAndQuitListener implements Listener {
 	public ArrayList<String> administracja_online;
 	
 	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent e) {
+	public void onPlayerJoin(PlayerJoinEvent e) throws NullPointerException {
 		Scoreboard.setScoreboard(e.getPlayer());
 		if(e.getPlayer().isOp()) {
 			if(API.isDyrtCraftXPEnabled()) {
 				DyrtCraftPlugin.sendMsgToOp(e.getPlayer().getName() + " dolaczyl na serwer", 0);
 			}
-			administracja_online.add(e.getPlayer().getName());
+			try {
+				administracja_online.add(e.getPlayer().getName());
+			} catch(NullPointerException ex) {}
 			return;
 		}
 		if(API.isDyrtCraftXPEnabled()) {
@@ -43,13 +45,15 @@ public class PlayerJoinAndQuitListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onPlayerQuit(PlayerQuitEvent e) {
+	public void onPlayerQuit(PlayerQuitEvent e) throws NullPointerException {
 		Scoreboard.setScoreboard(e.getPlayer());
 		if(e.getPlayer().isOp()) {
 			if(API.isDyrtCraftXPEnabled()) {
 				DyrtCraftPlugin.sendMsgToOp(e.getPlayer().getName() + " wyszedl z serwera", 0);
 			}
-			administracja_online.remove(e.getPlayer().getName());
+			try {
+				administracja_online.remove(e.getPlayer().getName());
+			} catch(NullPointerException ex) {}
 			return;
 		}
 		if(API.isDyrtCraftXPEnabled()) {

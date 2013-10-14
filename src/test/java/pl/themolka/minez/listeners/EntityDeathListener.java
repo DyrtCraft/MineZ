@@ -1,5 +1,6 @@
 package pl.themolka.minez.listeners;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -63,6 +64,10 @@ public class EntityDeathListener implements Listener {
 				zabijajacyPlayer.sendMessage(XP.showXp(zabijajacyPlayer.getName()));
 				XP.delXp(dedaczPlayer, 7, "Smierc przez gracza " + zabijajacyPlayer.getName());
 				dedaczPlayer.sendMessage(XP.showXp(dedaczPlayer.getName()));
+				dedaczPlayer.setCanPickupItems(false);
+				dedaczPlayer.setExp(0);
+				dedaczPlayer.setLevel(0);
+				dedaczPlayer.setGameMode(GameMode.ADVENTURE);
 				return;
 			}
 			// Player (wyg) vs Zombie (przeg)

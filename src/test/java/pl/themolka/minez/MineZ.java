@@ -5,14 +5,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
-
 import pl.themolka.minez.listeners.BandazListener;
 import pl.themolka.minez.listeners.CreatureSpawnListener;
 import pl.themolka.minez.listeners.Cuboid;
 import pl.themolka.minez.listeners.EntityDeathListener;
 import pl.themolka.minez.listeners.ExpAndLevelChangeListener;
 import pl.themolka.minez.listeners.PlayerJoinAndQuitListener;
-import pl.themolka.minez.listeners.PlayerMoveListener;
+import pl.themolka.minez.listeners.PlayerTeleportListener;
 import pl.themolka.minez.listeners.WodaListener;
 
 /**
@@ -26,7 +25,7 @@ public class MineZ extends JavaPlugin {
 	
 	private int token = 414735131;
 	private String authors = "TheMolkaPL";
-	private String version = "Development Build 020";
+	private String version = "Development Build 021";
 	
 	@Override
 	public void onDisable() {
@@ -51,8 +50,7 @@ public class MineZ extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new EntityDeathListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new ExpAndLevelChangeListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuitListener(this), this);
-		// TODO: Najlepsze rozwiazanie na updateowanie scoreboardow!
-		//Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new WodaListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new SignsManager(this), this);
 		getLogger().info("Zarejestrowano listenery");

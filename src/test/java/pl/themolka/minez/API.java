@@ -354,20 +354,21 @@ public class API extends MineZ {
 		player.teleport(location);
 		
 		// Exp & Lvl
-		player.setExp(9);
+		player.setExp(1);
 		player.setLevel(20);
 		
 		// Scoreboard
 		Scoreboard.setScoreboard(player);
 		
 		// Glod
+		player.setCanPickupItems(true);
 		player.setFoodLevel(20);
 		player.setGameMode(GameMode.ADVENTURE);
 		player.setHealth(20.0);
 		
 		// Porada
 		player.sendMessage(ChatColor.GOLD + "========== Porada ==========");
-		player.sendMessage(ChatColor.GRAY + "Zostales przeteleportowany losowo na mape.");
+		player.sendMessage(ChatColor.GRAY + "Zostales przeteleportowany losowo na mapie " + Bukkit.getWorld(world) + ".");
 		player.sendMessage(ChatColor.GRAY + "Witaj! Wlasnie rozpoczales walke o przetrwanie!");
 		player.sendMessage(ChatColor.GRAY + "Zdobywaj itemy w wioskach, walcz z Zombie, przetrwaj!");
 		player.sendMessage(ChatColor.GRAY + "- - - - - > " + ChatColor.BOLD + "Dobrej zabawy! :D");

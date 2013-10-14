@@ -110,8 +110,8 @@ public class MineZCommand implements CommandExecutor {
 		API.debug("protected boolean aboutArg(CommandSender)");
 		
 		sender.sendMessage(ChatColor.GOLD + " >==========[ " + ChatColor.BOLD + ChatColor.AQUA + "MineZ" + ChatColor.RESET + ChatColor.GOLD + " ]==========< ");
-		sender.sendMessage(ChatColor.GOLD + "Wersja: " + ChatColor.GRAY + API.getPlugin().getVersion());
-		sender.sendMessage(ChatColor.GOLD + "Autor: " + ChatColor.GRAY + API.getPlugin().getAuthors());
+		sender.sendMessage(ChatColor.GOLD + "Wersja: " + ChatColor.GRAY + API.getInstance().getVersion().toString());
+		sender.sendMessage(ChatColor.GOLD + "Autor: " + ChatColor.GRAY + API.getInstance().getAuthors().toString());
 		sender.sendMessage(ChatColor.GOLD + " >==========[ " + ChatColor.BOLD + ChatColor.AQUA + "MineZ" + ChatColor.RESET + ChatColor.GOLD + " ]==========< ");
 		return true;
 	}
@@ -240,7 +240,7 @@ public class MineZCommand implements CommandExecutor {
 		}
 		
 		if(lista.isEmpty()) {
-			sender.sendMessage(ChatColor.GOLD + "Obecnie nikt z administracji nie jest online! :(");
+			sender.sendMessage(ChatColor.GOLD + "Obecnie nie ma administratora online :(");
 			return true;
 		} else {
 			sender.sendMessage(ChatColor.GOLD + "Lista administracji online:");

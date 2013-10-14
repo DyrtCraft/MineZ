@@ -120,46 +120,45 @@ public class Sklep implements Listener {
 	}
 	
 	@EventHandler
-	public void onPlayerClickInventory(InventoryClickEvent e) {
+	public void onPlayerClickInventory(InventoryClickEvent e) throws NoSuchMethodException {
 		try {
 			Player player = (Player) e.getWhoClicked();
-			
 			if(!e.getInventory().getName().equalsIgnoreCase(inv.getName())) return;
 			
-			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Drewniany Miecz")) {
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Drewniany Miecz")) {
 				e.setCancelled(true);
 				buyItem(player, Material.WOOD_SWORD, "Drewniany Miecz", 10);
-				player.closeInventory();
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Drewniany Miecz! Kosztowalo Cie to 10 XP.");
 			}
-			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Kamienny miecz")) {
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Kamienny miecz")) {
 				e.setCancelled(true);
 				buyItem(player, Material.STONE_SWORD, "Kamienny miecz", 20);
-				player.closeInventory();
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Kamienny Miecz! Kosztowalo Cie to 20 XP.");
 			}
-			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Woda")) {
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Woda")) {
 				e.setCancelled(true);
 				buyItem(player, Material.getMaterial(373), "Woda", 60);
-				player.closeInventory();
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Woda! Kosztowalo Cie to 60 XP.");
 			}
-			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Bandaz")) {
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Bandaz")) {
 				e.setCancelled(true);
 				buyItem(player, Material.PAPER, "Bandaz", 70);
-				player.closeInventory();
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Bandaz! Kosztowalo Cie to 70 XP.");
 			}
-			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Zegarek")) {
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Zegarek")) {
 				e.setCancelled(true);
 				buyItem(player, Material.getMaterial(347), "Zegarek", 50);
-				player.closeInventory();
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Zegarek! Kosztowalo Cie to 50 XP.");
 			}
-			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Melon")) {
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Melon")) {
 				e.setCancelled(true);
 				buyItem(player, Material.MELON, "Melon", 40);
-				player.closeInventory();
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Melon! Kosztowalo Cie to 40 XP.");
 			}
-			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("Chleb")) {
+			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Chleb")) {
 				e.setCancelled(true);
 				buyItem(player, Material.BREAD, "Chleb", 55);
-				player.closeInventory();
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Chleb! Kosztowalo Cie to 55 XP.");
 			}
 
 		} catch(NullPointerException ex) {}

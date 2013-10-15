@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftPlugin;
+
 import pl.themolka.minez.API;
 import pl.themolka.minez.MineZ;
 import pl.themolka.minez.Scoreboard;

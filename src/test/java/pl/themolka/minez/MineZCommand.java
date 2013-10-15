@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftPlugin;
+
 import pl.themolka.minez.listeners.PlayerJoinAndQuitListener;
 
 /**
@@ -20,6 +21,9 @@ public class MineZCommand implements CommandExecutor {
 
 	MineZ plugin;
 	PlayerJoinAndQuitListener pjaql;
+	
+	String gitHub = "https://github.com/DyrtCraft/MineZ";
+	String website = "http://dyrtcraft.pl/";
 	
 	public MineZCommand(MineZ mineZ) {
 		plugin = mineZ;
@@ -67,6 +71,9 @@ public class MineZCommand implements CommandExecutor {
 				// Argument 0: staff
 				if(args[0].equalsIgnoreCase("staff")) {
 					return staffArg(sender);
+				}
+				if(args[0].equalsIgnoreCase("zabij") || args[0].equalsIgnoreCase("wroc")) {
+					return zabijArg(sender);
 				} else {
 					// Zaden z argumentow 0 nie zostal spelniony
 					return erArg(sender, "Podano bledny argument!");
@@ -109,10 +116,12 @@ public class MineZCommand implements CommandExecutor {
 	protected boolean aboutArg(CommandSender sender) {
 		API.debug("protected boolean aboutArg(CommandSender)");
 		
-		sender.sendMessage(ChatColor.GOLD + " >==========[ " + ChatColor.BOLD + ChatColor.AQUA + "MineZ" + ChatColor.RESET + ChatColor.GOLD + " ]==========< ");
-		sender.sendMessage(ChatColor.GOLD + "Wersja: " + ChatColor.GRAY + API.getInstance().getVersion().toString());
-		sender.sendMessage(ChatColor.GOLD + "Autor: " + ChatColor.GRAY + API.getInstance().getAuthors().toString());
-		sender.sendMessage(ChatColor.GOLD + " >==========[ " + ChatColor.BOLD + ChatColor.AQUA + "MineZ" + ChatColor.RESET + ChatColor.GOLD + " ]==========< ");
+		sender.sendMessage(ChatColor.GOLD + " >==========[ " + ChatColor.BOLD + ChatColor.AQUA + "About MineZ" + ChatColor.RESET + ChatColor.GOLD + " ]==========< ");
+		sender.sendMessage(ChatColor.GOLD + "Version: " + ChatColor.GRAY + API.getInstance().getDescription().getVersion());
+		sender.sendMessage(ChatColor.GOLD + "Author: " + ChatColor.GRAY + API.getInstance().getDescription().getAuthors());
+		sender.sendMessage(ChatColor.GOLD + "GitHub: " + ChatColor.GRAY + gitHub);
+		sender.sendMessage(ChatColor.GOLD + "Website: " + ChatColor.GRAY + website);
+		sender.sendMessage(ChatColor.GOLD + " >==========[ " + ChatColor.BOLD + ChatColor.AQUA + "About MineZ" + ChatColor.RESET + ChatColor.GOLD + " ]==========< ");
 		return true;
 	}
 	
@@ -131,6 +140,7 @@ public class MineZCommand implements CommandExecutor {
 		sender.sendMessage(ChatColor.RED + "/minez sklep");
 		sender.sendMessage(ChatColor.RED + "/minez spawn <mapa>");
 		sender.sendMessage(ChatColor.RED + "/minez staff");
+		sender.sendMessage(ChatColor.RED + "/minez zabji");
 		return true;
 	}
 	
@@ -221,10 +231,16 @@ public class MineZCommand implements CommandExecutor {
 			return true;
 		}
 		Player player = (Player) sender;
-		/*if(!(player.getLocation().getWorld().toString() == API.getSpawnWorldName())) {
+		if(!(player.getLocation().getWorld().toString().equalsIgnoreCase("Spawn"))){
 			player.sendMessage(ChatColor.RED + "Nie mozesz rozpoczac nowej rozgrywki, jezeli obecnie jestes w grze!");
+			if(API.isPoradyEnabled(player)) {
+				player.sendMessage(ChatColor.GOLD + "========== Porada ==========");
+				player.sendMessage(ChatColor.GRAY + "Czy chcesz wrócic na spawn?");
+				player.sendMessage(ChatColor.GRAY + "Jezli tak to uzyj komendy /minez zabji");
+				player.sendMessage(ChatColor.GRAY + "Przy tej czynnosci mozesz stracic duzo punktów XP!");
+			}
 			return true;
-		}*/
+		}
 		API.spawnPlayer(player, world);
 		return true;
 	}
@@ -247,6 +263,21 @@ public class MineZCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.GRAY + adminiList.toString());
 			return true;
 		}
+	}
+	
+	protected boolean zabijArg(CommandSender sender) {
+		API.debug("protected boolean zabjiArg(CommandSender)");
+		
+		if(!(sender instanceof Player)) {
+			sender.sendMessage(ChatColor.RED + "Nie mozesz wykonac tej komendy z poziomu konsoli!");
+			return true;
+		}
+		Player player = (Player) sender;
+		if(!(API.isDyrtCraftXPEnabled())) {
+			
+			return true;
+		}
+		return true;
 	}
 	
 }

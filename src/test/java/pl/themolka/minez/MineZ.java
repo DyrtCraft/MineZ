@@ -1,10 +1,14 @@
 package pl.themolka.minez;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
+
 import pl.themolka.minez.listeners.BandazListener;
 import pl.themolka.minez.listeners.CreatureSpawnListener;
 import pl.themolka.minez.listeners.Cuboid;
@@ -23,26 +27,27 @@ import pl.themolka.minez.listeners.WodaListener;
  */
 public class MineZ extends JavaPlugin {
 	
-	private int token = 414735131;
+	public int configTokenV1 = 414735131;
 	private String authors = "TheMolkaPL";
-	private String version = "Development Build 021";
+	private String version = "Development Build 022";
 	
 	@Override
 	public void onDisable() {
-		getLogger().info("Wylaczanie MineZ wersja " + API.getPlugin().getVersion() + " by " + API.getPlugin().getAuthors() + "...");
-		getLogger().info("Zapisywanie pliku config.yml...");
+		API.log("Wylaczanie MineZ wersja " + API.getPlugin().getVersion() + " by " + API.getPlugin().getAuthors() + "...");
+		API.log("Zapisywanie pliku config.yml...");
 		saveConfig();
-		getLogger().info("Pomyslnie zapisano plik config.yml!");
-		getLogger().info("");
-		getLogger().info("Pomyslnie wylaczono plugin MineZ, zyczymy milego dnia!");
+		API.log("Pomyslnie zapisano plik config.yml!");
+		API.log("");
+		API.log("Pomyslnie wylaczono plugin MineZ, zyczymy milego dnia!");
 		getPluginLoader().disablePlugin(this);
 	}
 	
 	@Override
 	public void onEnable() {
-		saveDefaultConfig();
+		// Komendy
 		getCommand("minez").setExecutor(new pl.themolka.minez.MineZCommand(this));
 		
+		// Rejestracja listenerow
 		Bukkit.getPluginManager().registerEvents(new Sklep(this), this);
 		Bukkit.getPluginManager().registerEvents(new BandazListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new CreatureSpawnListener(this), this);
@@ -53,16 +58,31 @@ public class MineZ extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new WodaListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new SignsManager(this), this);
-		getLogger().info("Zarejestrowano listenery");
+		API.log("Zarejestrowano listenery");
 		
-		/*if(!(API.checkConfigToken())) {
+		// Config
+		getConfig().options().copyDefaults(true);
+		getConfig().options().copyHeader(true);
+		if(API.checkConfigToken()) {
+			getLogger().warning("Twoja wersja pliku config.yml znajdujaca sie w plugins/MineZ jest przestarzala!");
+			getLogger().warning("Nadpisywanie nowego pliku...");
+			File file = new File(getDataFolder(), "config.yml");
+			file.delete();
 			getConfig().options().copyDefaults(true);
-		}*/
+			getConfig().options().copyHeader(true);
+			try {
+				getConfig().save("config.yml");
+			} catch (IOException e) {}
+			getLogger().info("Plik conifg.yml zostal podmieniony!");
+			
+		}
+		// Plugin DyrtCraftXP
 		if(!(API.isDyrtCraftXPEnabled())) {
 			getLogger().warning("Do pelnego dzialania tego pluginu potrzeby jest plugin DyrtCraftXP!");
+			return;
 		} else {
-			getLogger().info("Wykryto plugin DyrtCraftXP wersja " + DyrtCraftXP.getInstance().getVersion() + " by " + DyrtCraftXP.getInstance().getAuthors());
-			getLogger().info("Wspolpraca z pluginem DyrtCraft...");
+			API.log("Wykryto plugin DyrtCraftXP wersja " + DyrtCraftXP.getInstance().getVersion() + " by " + DyrtCraftXP.getInstance().getAuthors());
+			API.log("Wspolpraca z pluginem DyrtCraft...");
 		}
 	}
 	
@@ -86,7 +106,7 @@ public class MineZ extends JavaPlugin {
 	 */
 	public int getConfigToken() {
 		API.debug("public int getConfigToken()");
-		return token;
+		return configTokenV1;
 	}
 	
 	/**

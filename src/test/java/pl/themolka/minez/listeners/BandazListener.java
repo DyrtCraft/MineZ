@@ -9,9 +9,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import pl.DyrtCraft.DyrtCraftXP.api.XP;
+
 import pl.themolka.minez.API;
 import pl.themolka.minez.MineZ;
-import pl.themolka.minez.Sklep;
 
 /**
  * @author TheMolkaPL

@@ -9,6 +9,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.craftbukkit.libs.jline.internal.Log.Level;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -32,22 +33,6 @@ public class API extends MineZ {
 	
 	public API(MineZ mineZ) {
 		plugin = mineZ;
-	}
-	
-	/**
-	 * @author TheMolkaPL
-	 * @since Development Build 020
-	 * @see MineZ#getConfig()
-	 * @see MineZ#getConfigToken()
-	 * @return true Jezeli haslo token jest prawdziwe
-	 */
-	public static boolean checkConfigToken() {
-		API.debug("public static boolean checkConfigToken()");
-		if(API.getInstance().getConfigToken() == API.getInstance().getConfig().getInt("CONFIG-TOKEN")) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 	
 	/**
@@ -88,7 +73,24 @@ public class API extends MineZ {
 	
 	/**
 	 * @author TheMolkaPL
+	 * @since Development Build 020
+	 * @see MineZ#getConfig()
+	 * @see MineZ#getConfigToken()
+	 * @return true Jezeli haslo token jest prawdziwe
+	 */
+	public static boolean checkConfigToken() {
+		API.debug("public static boolean checkConfigToken()");
+		if(API.getInstance().configTokenV1 == API.getInstance().getConfig().getInt("CONFIG-TOKEN")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * @author TheMolkaPL
 	 * @since Development Build 015
+	 * @see API#log(String)
 	 * @param debug
 	 */
 	public static void debug(String msg) {
@@ -128,6 +130,17 @@ public class API extends MineZ {
 	
 	/**
 	 * @author TheMolkaPL
+	 * @since Development Build 022
+	 * @see API#debug(String)
+	 * @param msg Log
+	 */
+	public static void log(String msg) {
+		API.debug("public static void log(String)");
+		Bukkit.getLogger().log(null, msg);
+	}
+	
+	/**
+	 * @author TheMolkaPL
 	 * @since Development Build 012
 	 * @see MineZ#getMineZWorlds()
 	 * @return String - nazwa swiata na ktorym znajduje sie spawn
@@ -156,8 +169,25 @@ public class API extends MineZ {
 	
 	/**
 	 * @author TheMolkaPL
+	 * @since Development Build 022
+	 * @see DyrtCraftSpawn
+	 * @see API#isDyrtCraftXPEnabled()
+	 * @return true Jezli plugin {@link DyrtCraftSpawn} jest wlaczony
+	 */
+	public static boolean isDyrtCraftSpawnEnabled() {
+		API.debug("public static boolean isDyrtCraftSpawnEnabled()");
+		if(Bukkit.getPluginManager().isPluginEnabled("DyrtCraftSpawn")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * @author TheMolkaPL
 	 * @since Development Build 001
 	 * @see DyrtCraftXP
+	 * @see API#isDyrtCraftSpawnEnabled()
 	 * @return true Jezeli plugin {@link DyrtCraftXP} jest wlaczony
 	 */
 	public static boolean isDyrtCraftXPEnabled() {

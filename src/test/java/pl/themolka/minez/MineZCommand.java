@@ -2,6 +2,9 @@ package pl.themolka.minez;
 
 import java.util.List;
 
+import org.apache.commons.lang.NullArgumentException;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftPlugin;
+import pl.DyrtCraft.DyrtCraftXP.api.XP;
 
 import pl.themolka.minez.listeners.PlayerJoinAndQuitListener;
 
@@ -140,7 +144,7 @@ public class MineZCommand implements CommandExecutor {
 		sender.sendMessage(ChatColor.RED + "/minez sklep");
 		sender.sendMessage(ChatColor.RED + "/minez spawn <mapa>");
 		sender.sendMessage(ChatColor.RED + "/minez staff");
-		sender.sendMessage(ChatColor.RED + "/minez zabji");
+		sender.sendMessage(ChatColor.RED + "/minez zabij");
 		return true;
 	}
 	
@@ -274,8 +278,23 @@ public class MineZCommand implements CommandExecutor {
 		}
 		Player player = (Player) sender;
 		if(!(API.isDyrtCraftXPEnabled())) {
-			
+			try {
+				int xp1 = XP.getXp(player.getName());
+				int xp2 = xp1 / 2;
+				XP.delXp(player, xp2, "Powrót na spawn serwera MineZ");
+				player.sendMessage(ChatColor.GOLD + "Teleportacja...");
+				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "spawn");
+			} catch(NullArgumentException ex) {
+				player.sendMessage(ChatColor.GOLD + "Znaleziono blad, jednak trwa teleportacja...");
+				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "spawn");
+				DyrtCraftPlugin.sendMsgToOp("Znaleziono blad w pl.DyrtCraft.DyrtCraftXP.api.XP! Teleportacja gracza " + player.getName(), 0);
+			}
 			return true;
+		}
+		for(Player op : Bukkit.getOnlinePlayers()) {
+			if(op.isOp()) {
+				op.sendMessage(ChatColor.GRAY + "Plugin DyrtCraftXP nie jest dostepny! Teleportacja gracza " + player.getName());
+			}
 		}
 		return true;
 	}

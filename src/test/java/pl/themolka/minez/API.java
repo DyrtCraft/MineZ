@@ -1,14 +1,12 @@
 package pl.themolka.minez;
 
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -164,22 +162,6 @@ public class API extends MineZ {
 		headMeta.setOwner(owner);
 		head.setItemMeta(headMeta);
 		return head;
-	}
-	
-	/**
-	 * @author TheMolkaPL
-	 * @since Development Build 022
-	 * @see DyrtCraftSpawn
-	 * @see API#isDyrtCraftXPEnabled()
-	 * @return true Jezli plugin {@link DyrtCraftSpawn} jest wlaczony
-	 */
-	public static boolean isDyrtCraftSpawnEnabled() {
-		API.debug("public static boolean isDyrtCraftSpawnEnabled()");
-		if(Bukkit.getPluginManager().isPluginEnabled("DyrtCraftSpawn")) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 	
 	/**

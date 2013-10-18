@@ -33,7 +33,8 @@ public class BandazListener implements Listener {
 			if((e.getAction() == Action.RIGHT_CLICK_AIR) || (e.getAction() == Action.RIGHT_CLICK_BLOCK)) {
 				if(e.getItem().getType() == Material.PAPER) {
 					// Usunecie bandazu (papieru)
-					e.getPlayer().getInventory().removeItem(new ItemStack[] { new ItemStack(339, 1) });
+					ItemStack bandaz = new ItemStack(339, 1);
+					e.getPlayer().getInventory().removeItem(new ItemStack[] { bandaz });
 					
 					// Obliczenie food lvl
 					int foodLvl = e.getPlayer().getFoodLevel();

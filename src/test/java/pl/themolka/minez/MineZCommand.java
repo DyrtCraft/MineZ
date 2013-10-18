@@ -277,7 +277,7 @@ public class MineZCommand implements CommandExecutor {
 			return true;
 		}
 		Player player = (Player) sender;
-		if(!(API.isDyrtCraftXPEnabled())) {
+		if(API.isDyrtCraftXPEnabled()) {
 			try {
 				int xp1 = XP.getXp(player.getName());
 				int xp2 = xp1 / 2;
@@ -290,10 +290,13 @@ public class MineZCommand implements CommandExecutor {
 				DyrtCraftPlugin.sendMsgToOp("Znaleziono blad w pl.DyrtCraft.DyrtCraftXP.api.XP! Teleportacja gracza " + player.getName(), 0);
 			}
 			return true;
-		}
-		for(Player op : Bukkit.getOnlinePlayers()) {
-			if(op.isOp()) {
-				op.sendMessage(ChatColor.GRAY + "Plugin DyrtCraftXP nie jest dostepny! Teleportacja gracza " + player.getName());
+		} else {
+			player.sendMessage(ChatColor.GOLD + "Teleportacja...");
+			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "spawn");
+			for(Player op : Bukkit.getOnlinePlayers()) {
+				if(op.isOp()) {
+					op.sendMessage(ChatColor.GRAY + "Plugin DyrtCraftXP nie jest dostepny! Teleportacja gracza " + player.getName() + "...");
+				}
 			}
 		}
 		return true;

@@ -1,13 +1,12 @@
 package pl.themolka.minez.listeners;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 
 import pl.DyrtCraft.DyrtCraftXP.api.XP;
@@ -32,8 +31,8 @@ public class WodaListener implements Listener {
 				if(e.getItem().getTypeId() == 373) {
 					Player player = (Player) e.getPlayer();
 					API.debug("public void onPlayerInteract(PlayerInteractEvent)");
-					task = Bukkit.getScheduler().runTaskTimer(plugin, run(player), 0, 20l);
-					
+					run(player);
+					//task = plugin.getServer().getScheduler().runTaskTimer(plugin, run(player), 0, 20l);
 				}
 			}
 		} catch(NullPointerException ex) {}
@@ -44,7 +43,8 @@ public class WodaListener implements Listener {
 		int curLvl = player.getLevel();
 		int ostLvl = curLvl+5;
 		
-		player.getInventory().remove(Material.getMaterial(373));
+		ItemStack woda = new ItemStack(339, 1);
+		player.getInventory().removeItem(new ItemStack[] { woda });
 		player.setExp(5);
 		player.setLevel(ostLvl);
 		

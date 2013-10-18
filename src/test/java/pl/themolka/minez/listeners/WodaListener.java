@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitTask;
 
 import pl.DyrtCraft.DyrtCraftXP.api.XP;
@@ -43,9 +44,21 @@ public class WodaListener implements Listener {
 		int curLvl = player.getLevel();
 		int ostLvl = curLvl+5;
 		
-		ItemStack woda = new ItemStack(339, 1);
+		ItemStack woda = new ItemStack(373, 1);
+		ItemMeta wodaMeta = woda.getItemMeta();
+		wodaMeta.setDisplayName(ChatColor.GOLD + "Woda");
+		woda.setItemMeta(wodaMeta);
+		
+		ItemStack butelka = new ItemStack(374, 1);
+		ItemMeta butelkaMeta = butelka.getItemMeta();
+		butelkaMeta.setDisplayName(ChatColor.GOLD + "Woda");
+		butelka.setItemMeta(butelkaMeta);
+		
 		player.getInventory().removeItem(new ItemStack[] { woda });
-		player.setExp(5);
+		player.getInventory().addItem(new ItemStack[] { butelka });
+		
+		float exp = 1;
+		player.setExp(exp);
 		player.setLevel(ostLvl);
 		
 		if(API.isPoradyEnabled(player)) {

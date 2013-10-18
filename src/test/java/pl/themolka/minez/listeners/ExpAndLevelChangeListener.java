@@ -32,7 +32,7 @@ public class ExpAndLevelChangeListener implements Listener {
 	public void onPlayerLevelChange(PlayerLevelChangeEvent e) {
 		if(e.getNewLevel() > 20) {
 			e.getPlayer().setLevel(20);
-			e.getPlayer().sendMessage(ChatColor.GRAY + "Otrzymano maksymalny poziom paska");
+			e.getPlayer().sendMessage(ChatColor.GRAY + "Otrzymano maksymalny poziom paska!");
 		}
 	}
 	

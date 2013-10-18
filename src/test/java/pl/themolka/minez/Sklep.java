@@ -25,14 +25,14 @@ public class Sklep implements Listener {
 
 	static Inventory inv;
 	
-	ItemStack drewniany_miecz, kamienny_miecz, butelka, bandaz, zegarek, melon, chleb;
+	ItemStack drewniany_miecz, kamienny_miecz, butelka, bandaz, zegarek, melon, chleb, skoraHelmet, skoraChestplate, skoraLeggings, skoraBoots, chainHelmet, chainChestplate, chainLeggings, chainBoots;
 	
 	MineZ plugin;
 	
 	public Sklep(MineZ mineZ) {
 		plugin = mineZ;
 		
-		inv = Bukkit.createInventory(null, 45, ChatColor.RED + "Sklep " + ChatColor.GOLD + "MineZ");
+		inv = Bukkit.createInventory(null, 36, ChatColor.RED + "" + ChatColor.BOLD + "Sklep MineZ");
 		
 		drewniany_miecz = cretateItem(Material.WOOD_SWORD, "Drewniany Miecz", "Najlepszy na poczatek", 10);
 		kamienny_miecz = cretateItem(Material.STONE_SWORD, "Kamienny miecz", "Podstawowa bron", 20);
@@ -42,6 +42,16 @@ public class Sklep implements Listener {
 		melon = cretateItem(Material.MELON, "Melon", "Mala przegryzka", 40);
 		chleb = cretateItem(Material.BREAD, "Chleb", "Jedzenie", 55);
 		
+		skoraHelmet = cretateItem(Material.LEATHER_HELMET, "Skorzany helm", "Zbroja", 15);
+		skoraChestplate = cretateItem(Material.LEATHER_CHESTPLATE, "Skorzany napiersnik", "Zbroja", 15);
+		skoraLeggings = cretateItem(Material.LEATHER_LEGGINGS, "Skorzane spodnie", "Zbroja", 15);
+		skoraBoots = cretateItem(Material.LEATHER_BOOTS, "Skorzane buty", "Zbroja", 15);
+		
+		chainHelmet = cretateItem(Material.CHAINMAIL_HELMET, "Chainowy helm", "Zbroja", 30);
+		chainChestplate = cretateItem(Material.CHAINMAIL_CHESTPLATE, "Chainowy napiersnik", "Zbroja", 30);
+		chainLeggings = cretateItem(Material.CHAINMAIL_LEGGINGS, "Chainowe spodnie", "Zbroja", 30);
+		chainBoots = cretateItem(Material.CHAINMAIL_BOOTS, "Chainowe buty", "Zbroja", 30);
+		
 		inv.setItem(0, drewniany_miecz);
 		inv.setItem(1, kamienny_miecz);
 		inv.setItem(2, butelka);
@@ -49,6 +59,16 @@ public class Sklep implements Listener {
 		inv.setItem(4, zegarek);
 		inv.setItem(5, melon);
 		inv.setItem(6, chleb);
+		
+		inv.setItem(27, skoraHelmet);
+		inv.setItem(28, skoraChestplate);
+		inv.setItem(29, skoraLeggings);
+		inv.setItem(30, skoraBoots);
+		
+		inv.setItem(32, chainHelmet);
+		inv.setItem(33, chainChestplate);
+		inv.setItem(34, chainLeggings);
+		inv.setItem(35, chainBoots);
 	}
 	
 	/**
@@ -122,43 +142,86 @@ public class Sklep implements Listener {
 	@EventHandler
 	public void onPlayerClickInventory(InventoryClickEvent e) throws NoSuchMethodException {
 		try {
+			String _ = e.getCurrentItem().getItemMeta().getDisplayName();
 			Player player = (Player) e.getWhoClicked();
 			if(!e.getInventory().getName().equalsIgnoreCase(inv.getName())) return;
 			
-			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Drewniany Miecz")) {
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Drewniany Miecz")) {
 				e.setCancelled(true);
 				buyItem(player, Material.WOOD_SWORD, "Drewniany Miecz", 10);
 				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Drewniany Miecz! Kosztowalo Cie to 10 XP.");
 			}
-			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Kamienny miecz")) {
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Kamienny miecz")) {
 				e.setCancelled(true);
 				buyItem(player, Material.STONE_SWORD, "Kamienny miecz", 20);
 				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Kamienny Miecz! Kosztowalo Cie to 20 XP.");
 			}
-			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Woda")) {
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Woda")) {
 				e.setCancelled(true);
 				buyItem(player, Material.getMaterial(373), "Woda", 60);
 				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Woda! Kosztowalo Cie to 60 XP.");
 			}
-			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Bandaz")) {
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Bandaz")) {
 				e.setCancelled(true);
 				buyItem(player, Material.PAPER, "Bandaz", 70);
 				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Bandaz! Kosztowalo Cie to 70 XP.");
 			}
-			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Zegarek")) {
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Zegarek")) {
 				e.setCancelled(true);
 				buyItem(player, Material.getMaterial(347), "Zegarek", 50);
 				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Zegarek! Kosztowalo Cie to 50 XP.");
 			}
-			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Melon")) {
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Melon")) {
 				e.setCancelled(true);
 				buyItem(player, Material.MELON, "Melon", 40);
 				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Melon! Kosztowalo Cie to 40 XP.");
 			}
-			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Chleb")) {
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Chleb")) {
 				e.setCancelled(true);
 				buyItem(player, Material.BREAD, "Chleb", 55);
 				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Chleb! Kosztowalo Cie to 55 XP.");
+			}
+			
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Skorzany helm")) {
+				e.setCancelled(true);
+				buyItem(player, Material.LEATHER_HELMET, "Skorzany helm", 15);
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Zbroje! Kosztowalo Cie to 15 XP.");
+			}
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Skorzany napiersnik")) {
+				e.setCancelled(true);
+				buyItem(player, Material.LEATHER_CHESTPLATE, "Skorzany napiersnik", 15);
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Zbroje! Kosztowalo Cie to 15 XP.");
+			}
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Skorzane spodnie")) {
+				e.setCancelled(true);
+				buyItem(player, Material.LEATHER_LEGGINGS, "Skorzane spodnie", 15);
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Zbroje! Kosztowalo Cie to 15 XP.");
+			}
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Skorzane buty")) {
+				e.setCancelled(true);
+				buyItem(player, Material.LEATHER_BOOTS, "Skorzane buty", 15);
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Zbroje! Kosztowalo Cie to 15 XP.");
+			}
+			
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Chainowy helm")) {
+				e.setCancelled(true);
+				buyItem(player, Material.CHAINMAIL_HELMET, "Chainowy helm", 30);
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Zbroje! Kosztowalo Cie to 30 XP.");
+			}
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Chainowy napiersnik")) {
+				e.setCancelled(true);
+				buyItem(player, Material.CHAINMAIL_CHESTPLATE, "Chainowy napiersnik", 30);
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Zbroje! Kosztowalo Cie to 30 XP.");
+			}
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Chainowe spodnie")) {
+				e.setCancelled(true);
+				buyItem(player, Material.CHAINMAIL_LEGGINGS, "Chainowe spodnie", 30);
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Zbroje! Kosztowalo Cie to 30 XP.");
+			}
+			if(_.equalsIgnoreCase(ChatColor.GOLD + "" + ChatColor.BOLD + "Chainowe buty")) {
+				e.setCancelled(true);
+				buyItem(player, Material.CHAINMAIL_BOOTS, "Chainowe buty", 30);
+				player.sendMessage(ChatColor.GOLD + "Pomyslnie zakupiono Zbroje! Kosztowalo Cie to 30 XP.");
 			}
 
 		} catch(NullPointerException ex) {}

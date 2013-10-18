@@ -365,7 +365,8 @@ public class API extends MineZ {
 		player.teleport(location);
 		
 		// Exp & Lvl
-		player.setExp(1);
+		float exp = 1;
+		player.setExp(exp);
 		player.setLevel(20);
 		
 		// Scoreboard

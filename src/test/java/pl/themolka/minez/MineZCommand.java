@@ -3,7 +3,6 @@ package pl.themolka.minez;
 import java.util.List;
 
 import org.apache.commons.lang.NullArgumentException;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -12,7 +11,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftPlugin;
-import pl.DyrtCraft.DyrtCraftXP.api.XP;
 
 import pl.themolka.minez.listeners.PlayerJoinAndQuitListener;
 
@@ -214,7 +212,7 @@ public class MineZCommand implements CommandExecutor {
 	protected boolean sklepArg(CommandSender sender) {
 		API.debug("protected boolean sklepArg(CommandSender)");
 		
-		if(!(sender.isOp())) {
+		if(!(sender.isOp() || sender.hasPermission("minez.vip"))) {
 			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
 			return true;
 		}
@@ -279,20 +277,51 @@ public class MineZCommand implements CommandExecutor {
 		Player player = (Player) sender;
 		if(API.isDyrtCraftXPEnabled()) {
 			try {
-				int xp1 = XP.getXp(player.getName());
+				/*int xp1 = XP.getXp(player.getName());
 				int xp2 = xp1 / 2;
-				XP.delXp(player, xp2, "Powrót na spawn serwera MineZ");
+				XP.delXp(player, xp2, "Powrót na spawn serwera MineZ");*/
 				player.sendMessage(ChatColor.GOLD + "Teleportacja...");
-				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "spawn");
+				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "spawn " + sender.getName());
+				
+				player.setExp(0);
+				player.setFoodLevel(20);
+				player.setHealth(20.0);
+				player.setLevel(0);
+				player.getInventory().setHelmet(null);
+				player.getInventory().setChestplate(null);
+				player.getInventory().setLeggings(null);
+				player.getInventory().setBoots(null);
+				player.getInventory().clear();
 			} catch(NullArgumentException ex) {
 				player.sendMessage(ChatColor.GOLD + "Znaleziono blad, jednak trwa teleportacja...");
-				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "spawn");
+				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "spawn " + sender.getName());
 				DyrtCraftPlugin.sendMsgToOp("Znaleziono blad w pl.DyrtCraft.DyrtCraftXP.api.XP! Teleportacja gracza " + player.getName(), 0);
+				
+				player.setExp(0);
+				player.setFoodLevel(20);
+				player.setHealth(20.0);
+				player.setLevel(0);
+				player.getInventory().setHelmet(null);
+				player.getInventory().setChestplate(null);
+				player.getInventory().setLeggings(null);
+				player.getInventory().setBoots(null);
+				player.getInventory().clear();
 			}
 			return true;
 		} else {
 			player.sendMessage(ChatColor.GOLD + "Teleportacja...");
-			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "spawn");
+			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "spawn " + sender.getName());
+			
+			player.setExp(0);
+			player.setFoodLevel(20);
+			player.setHealth(10.0);
+			player.setLevel(0);
+			player.getInventory().setHelmet(null);
+			player.getInventory().setChestplate(null);
+			player.getInventory().setLeggings(null);
+			player.getInventory().setBoots(null);
+			player.getInventory().clear();
+			
 			for(Player op : Bukkit.getOnlinePlayers()) {
 				if(op.isOp()) {
 					op.sendMessage(ChatColor.GRAY + "Plugin DyrtCraftXP nie jest dostepny! Teleportacja gracza " + player.getName() + "...");

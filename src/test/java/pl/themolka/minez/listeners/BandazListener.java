@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import pl.DyrtCraft.DyrtCraftXP.api.XP;
 
@@ -34,6 +35,9 @@ public class BandazListener implements Listener {
 				if(e.getItem().getType() == Material.PAPER) {
 					// Usunecie bandazu (papieru)
 					ItemStack bandaz = new ItemStack(339, 1);
+					ItemMeta bandazMeta = bandaz.getItemMeta();
+					bandazMeta.setDisplayName(ChatColor.GOLD + "Bandaz");
+					bandaz.setItemMeta(bandazMeta);
 					e.getPlayer().getInventory().removeItem(new ItemStack[] { bandaz });
 					
 					// Obliczenie food lvl

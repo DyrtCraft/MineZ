@@ -1,7 +1,5 @@
 package pl.themolka.minez;
 
-import java.util.List;
-
 import org.apache.commons.lang.NullArgumentException;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -68,11 +66,9 @@ public class MineZCommand implements CommandExecutor {
 				}
 				// Argument 0: spawn, start, join
 				if(args[0].equalsIgnoreCase("spawn") || args[0].equalsIgnoreCase("start") || args[0].equalsIgnoreCase("join")) {
-					return erArg(sender, "Nie podano nazwy mapy!");
-				}
-				// Argument 0: staff
-				if(args[0].equalsIgnoreCase("staff")) {
-					return staffArg(sender);
+					sender.sendMessage(ChatColor.RED + "Podaj nazwe mapy! Dostepne obecnie mapy to: " + API.mapy(ChatColor.RED));
+					sender.sendMessage(ChatColor.RED + "Uzycie: " + ChatColor.GOLD + "/minez spawn [Alfa|Beta|Gamma]");
+					return true;
 				}
 				if(args[0].equalsIgnoreCase("zabij") || args[0].equalsIgnoreCase("wroc")) {
 					return zabijArg(sender);
@@ -135,14 +131,13 @@ public class MineZCommand implements CommandExecutor {
 			return true;
 		}
 		sender.sendMessage(ChatColor.GOLD + "========== Pomoc ==========");
-		sender.sendMessage(ChatColor.RED + "/minez about");
-		sender.sendMessage(ChatColor.RED + "/minez kit [vip]");
-		sender.sendMessage(ChatColor.RED + "/minez pomoc");
-		sender.sendMessage(ChatColor.RED + "/minez reload");
-		sender.sendMessage(ChatColor.RED + "/minez sklep");
-		sender.sendMessage(ChatColor.RED + "/minez spawn <mapa>");
-		sender.sendMessage(ChatColor.RED + "/minez staff");
-		sender.sendMessage(ChatColor.RED + "/minez zabij");
+		sender.sendMessage(ChatColor.GOLD + "/minez about");
+		sender.sendMessage(ChatColor.GOLD + "/minez kit [vip]");
+		sender.sendMessage(ChatColor.GOLD + "/minez pomoc");
+		sender.sendMessage(ChatColor.GOLD + "/minez reload");
+		sender.sendMessage(ChatColor.GOLD + "/minez sklep");
+		sender.sendMessage(ChatColor.GOLD + "/minez spawn <mapa>");
+		sender.sendMessage(ChatColor.GOLD + "/minez zabij");
 		return true;
 	}
 	
@@ -233,38 +228,18 @@ public class MineZCommand implements CommandExecutor {
 			return true;
 		}
 		Player player = (Player) sender;
-		if(!(player.getLocation().getWorld().toString().equalsIgnoreCase("Spawn"))){
+		if(!(player.getLocation().getWorld().getName().equalsIgnoreCase("Spawn"))){
 			player.sendMessage(ChatColor.RED + "Nie mozesz rozpoczac nowej rozgrywki, jezeli obecnie jestes w grze!");
-			if(API.isPoradyEnabled(player)) {
+			/*if(API.isPoradyEnabled(player)) {
 				player.sendMessage(ChatColor.GOLD + "========== Porada ==========");
 				player.sendMessage(ChatColor.GRAY + "Czy chcesz wrócic na spawn?");
-				player.sendMessage(ChatColor.GRAY + "Jezli tak to uzyj komendy /minez zabji");
+				player.sendMessage(ChatColor.GRAY + "Jezli tak to uzyj komendy /minez zabij");
 				player.sendMessage(ChatColor.GRAY + "Przy tej czynnosci mozesz stracic duzo punktów XP!");
-			}
+			}*/
 			return true;
 		}
 		API.spawnPlayer(player, world);
 		return true;
-	}
-	
-	protected boolean staffArg(CommandSender sender) {
-		API.debug("protected boolean staffArg(CommandSender)");
-		
-		List<String> lista = pjaql.administracja_online;
-		StringBuilder adminiList = new StringBuilder();
-		for(String admini : lista) {
-			adminiList.append(admini.getBytes());
-			adminiList.append(", ");
-		}
-		
-		if(lista.isEmpty()) {
-			sender.sendMessage(ChatColor.GOLD + "Obecnie nie ma administratora online :(");
-			return true;
-		} else {
-			sender.sendMessage(ChatColor.GOLD + "Lista administracji online:");
-			sender.sendMessage(ChatColor.GRAY + adminiList.toString());
-			return true;
-		}
 	}
 	
 	protected boolean zabijArg(CommandSender sender) {

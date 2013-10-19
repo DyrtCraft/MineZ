@@ -76,12 +76,13 @@ public class API extends MineZ {
 	 * @return true Jezeli haslo token jest prawdziwe
 	 */
 	public static boolean checkConfigToken() {
-		API.debug("public static boolean checkConfigToken()");
+		/*API.debug("public static boolean checkConfigToken()");
 		if(API.getInstance().configTokenV1 == API.getInstance().getConfig().getInt("CONFIG-TOKEN")) {
 			return true;
 		} else {
 			return false;
-		}
+		}*/
+		return false;
 	}
 	
 	/**
@@ -91,10 +92,11 @@ public class API extends MineZ {
 	 * @param debug
 	 */
 	public static void debug(String msg) {
-		try {
-			//if(plugin.getConfig().getBoolean("debug") == false) { /*Debug jest wlaczony*/ }
+		//String ver = plugin.getDescription().getVersion();
+		//if(ver.contains("Dev") || ver.contains("SNAPSHOT")) {
+			// Wersja Dev lub Snapshot - Mozna debugowac
 			Bukkit.getLogger().info("[MineZ] " + msg);
-		} catch(NullPointerException ex) { /*Blad pliku config.yml*/ }
+		//} else { /* Wersja pelna */ }
 	}
 	
 	public static void disablePorady(Player player) {}
@@ -133,7 +135,7 @@ public class API extends MineZ {
 	 */
 	public static void log(String msg) {
 		API.debug("public static void log(String)");
-		Bukkit.getLogger().log(null, msg);
+		Bukkit.getLogger().info(msg);
 	}
 	
 	/**
@@ -195,6 +197,11 @@ public class API extends MineZ {
 	}
 	
 	public static boolean isPoradyEnabled(Player player) { return true; }
+	
+	public static String mapy(ChatColor color) {
+		String a = ChatColor.GOLD+"Alfa"+color+", "+ChatColor.GOLD+"Beta"+color+" oraz "+ChatColor.GOLD+"Gamma"+color+".";
+		return a;
+	}
 	
 	public static void sendStarterKit(Player player) {
 		API.debug("public static void sendStarterKit(Player)");
@@ -361,8 +368,14 @@ public class API extends MineZ {
 		
 		Location location = new Location(swiat, x, y, z);
 		player.teleport(location);*/
-		Location location = new Location(Bukkit.getWorld(world), 0, 64, 0);
-		player.teleport(location);
+		try {
+			Location location = new Location(Bukkit.getWorld(world), 0, 64, 0);
+			player.teleport(location);
+		} catch(NullPointerException ex) {
+			player.sendMessage(ChatColor.RED + "Mapa o nazwie \"" + world + "\" nie zostala odnaleziona! Spróbuj jeszcze raz!");
+			player.sendMessage(ChatColor.RED + "Dostepne obecnie mapy to: " + API.mapy(ChatColor.GOLD));
+			return;
+		}
 		
 		// Exp & Lvl
 		float exp = 1;

@@ -1,5 +1,5 @@
 name: MineZ
-version: Development Build 026
+version: Development Build 027
 website: http://dyrtcraft.pl/
 author: TheMolkaPL
 load: STARTUP
@@ -8,9 +8,10 @@ prefix: MineZ
 description: Plugin stworzony specjalnie dla DyrtCraft Network!
 
 main: pl.themolka.minez.MineZ
+# WAZNE! NIE DOTYKAC!
 
 commands:
     minez:
         description: MineZ
-        aliases: [mz]
-        usage: /minez <pomoc|spawn>
+        aliases: [mz, dayz, dz]
+        usage: /minez <pomoc|sklep|spawn>

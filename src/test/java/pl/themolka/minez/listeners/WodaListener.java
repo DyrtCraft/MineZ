@@ -27,8 +27,7 @@ public class WodaListener implements Listener {
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		try {
-			if(e.getAction() == Action.RIGHT_CLICK_AIR);
-			if(e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+			if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 				if(e.getItem().getTypeId() == 373) {
 					Player player = (Player) e.getPlayer();
 					API.debug("public void onPlayerInteract(PlayerInteractEvent)");

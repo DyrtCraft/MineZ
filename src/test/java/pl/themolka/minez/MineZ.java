@@ -29,7 +29,7 @@ public class MineZ extends JavaPlugin {
 	
 	public int configTokenV1 = 414735131;
 	private String authors = "TheMolkaPL";
-	private String version = "Development Build 027";
+	private String version = "Development Build 028";
 	
 	@Override
 	public void onDisable() {
@@ -48,6 +48,14 @@ public class MineZ extends JavaPlugin {
 		// Komendy
 		getCommand("minez").setExecutor(new pl.themolka.minez.MineZCommand(this));
 		
+		// Komendy DyrtCraftMineZ
+		getCommand("dolacz").setExecutor(new pl.dyrtcraft.dyrtcraftminez.commands.DolaczCommand(this));
+		getCommand("mapa").setExecutor(new pl.dyrtcraft.dyrtcraftminez.commands.MapaCommand(this));
+		getCommand("regulamin").setExecutor(new pl.dyrtcraft.dyrtcraftminez.commands.RegulaminCommand(this));
+		getCommand("sklep").setExecutor(new pl.dyrtcraft.dyrtcraftminez.commands.SklepCommand(this));
+		getCommand("vip").setExecutor(new pl.dyrtcraft.dyrtcraftminez.commands.VipCommand(this));
+		getCommand("zabij").setExecutor(new pl.dyrtcraft.dyrtcraftminez.commands.ZabijCommand(this));
+		
 		// Rejestracja listenerow
 		Bukkit.getPluginManager().registerEvents(new Sklep(this), this);
 		Bukkit.getPluginManager().registerEvents(new BandazListener(this), this);
@@ -60,6 +68,10 @@ public class MineZ extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new WodaListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new SignsManager(this), this);
 		API.log("Zarejestrowano listenery");
+		
+		// Rejestracja listenerów DyrtCraftMineZ
+		Bukkit.getPluginManager().registerEvents(new pl.dyrtcraft.dyrtcraftminez.Listeners(this), this);
+		API.log("Zarejestrowano listenery DyrtCraftMineZ");
 		
 		// Config
 		getConfig().options().copyDefaults(true);

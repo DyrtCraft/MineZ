@@ -373,7 +373,7 @@ public class API extends MineZ {
 			player.teleport(location);
 		} catch(NullPointerException ex) {
 			player.sendMessage(ChatColor.RED + "Mapa o nazwie \"" + world + "\" nie zostala odnaleziona! Spróbuj jeszcze raz!");
-			player.sendMessage(ChatColor.RED + "Dostepne obecnie mapy to: " + API.mapy(ChatColor.GOLD));
+			player.sendMessage(ChatColor.RED + "Dostepne obecnie mapy to: " + API.mapy(ChatColor.RED));
 			return;
 		}
 		

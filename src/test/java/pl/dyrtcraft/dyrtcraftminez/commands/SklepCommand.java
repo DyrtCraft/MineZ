@@ -25,7 +25,7 @@ public class SklepCommand implements CommandExecutor {
 		}
 		if(!(sender.isOp() || sender.hasPermission("minez.vip"))) {
 			sender.sendMessage(ChatColor.RED + "Nie mozesz korzystaz ze sklepu z komendy!");
-			sender.sendMessage(ChatColor.GOLD + "Kup range VIP, abo móc korzystac ze sklepu i wiele wiele wiecej!");
+			sender.sendMessage(ChatColor.GOLD + "Kup range VIP, aby móc korzystac ze sklepu i wiele wiele wiecej!");
 			return true;
 		}
 		Player player = (Player) sender;

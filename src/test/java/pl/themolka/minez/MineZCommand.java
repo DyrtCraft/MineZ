@@ -1,6 +1,5 @@
 package pl.themolka.minez;
 
-import org.apache.commons.lang.NullArgumentException;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -132,7 +131,7 @@ public class MineZCommand implements CommandExecutor {
 		API.debug("protected boolean aboutArg(CommandSender)");
 		
 		if(!(sender.isOp())) {
-			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
+			erArg(sender, "Nie posiadasz uprawnien do tego argumentu!");
 			return true;
 		}
 		sender.sendMessage(ChatColor.GOLD + "========== Pomoc ==========");
@@ -150,7 +149,7 @@ public class MineZCommand implements CommandExecutor {
 		API.debug("protected boolean kitArg(CommandSender)");
 		
 		if(!(sender.isOp())) {
-			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
+			erArg(sender, "Nie posiadasz uprawnien do tego argumentu!");
 			return true;
 		}
 		if(!(sender instanceof Player)) {
@@ -167,7 +166,7 @@ public class MineZCommand implements CommandExecutor {
 		API.debug("protected boolean kitVIPArg(CommandSender)");
 		
 		if(!(sender.isOp())) {
-			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
+			erArg(sender, "Nie posiadasz uprawnien do tego argumentu!");
 			return true;
 		}
 		if(!(sender instanceof Player)) {
@@ -193,7 +192,7 @@ public class MineZCommand implements CommandExecutor {
 		API.debug("protected boolean reloadArg(CommandSender)");
 		
 		if(!(sender.isOp())) {
-			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
+			erArg(sender, "Nie posiadasz uprawnien do tego argumentu!");
 			return true;
 		} else {
 			if(API.isDyrtCraftXPEnabled()) {
@@ -213,7 +212,8 @@ public class MineZCommand implements CommandExecutor {
 		API.debug("protected boolean sklepArg(CommandSender)");
 		
 		if(!(sender.isOp() || sender.hasPermission("minez.vip"))) {
-			sender.sendMessage(ChatColor.RED + "Ojj, brak odpowiednich uprawnien!");
+			sender.sendMessage(ChatColor.RED + "Nie mozesz korzystaz ze sklepu z komendy!");
+			sender.sendMessage(ChatColor.GOLD + "Kup range VIP, aby móc korzystac ze sklepu i wiele wiele wiecej!");
 			return true;
 		}
 		if(!(sender instanceof Player)) {
@@ -256,77 +256,42 @@ public class MineZCommand implements CommandExecutor {
 		}
 		Player player = (Player) sender;
 		if(API.isDyrtCraftXPEnabled()) {
-			try {
-				if(player.getLocation().getWorld().getName().equalsIgnoreCase("Spawn")) {
-					player.sendMessage(ChatColor.RED + "Nie mozesz sie zabic na spawnie!");
-					return true;
-				}
-				/*int xp1 = XP.getXp(player.getName());
-				int xp2 = xp1 / 2;
-				XP.delXp(player, xp2, "Powrót na spawn serwera MineZ");*/
-				player.sendMessage(ChatColor.GOLD + "Teleportacja...");
-				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "warp Spawn " + sender.getName());
-				
-				player.setExp(0);
-				player.setFoodLevel(20);
-				player.setHealth(20.0);
-				player.setLevel(0);
-				player.getInventory().setHelmet(null);
-				player.getInventory().setChestplate(null);
-				player.getInventory().setLeggings(null);
-				player.getInventory().setBoots(null);
-				player.getInventory().clear();
-				
-				Scoreboard.setScoreboard(player);
-			} catch(NullArgumentException ex) {
-				if(player.getLocation().getWorld().getName().equalsIgnoreCase("Spawn")) {
-					player.sendMessage(ChatColor.RED + "Nie mozesz sie zabic na spawnie!");
-					return true;
-				}
-				player.sendMessage(ChatColor.GOLD + "Znaleziono blad, jednak trwa teleportacja...");
-				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "warp Spawn " + sender.getName());
-				DyrtCraftPlugin.sendMsgToOp("Znaleziono blad w pl.DyrtCraft.DyrtCraftXP.api.XP! Teleportacja gracza " + player.getName(), 0);
-				
-				player.setExp(0);
-				player.setFoodLevel(20);
-				player.setHealth(20.0);
-				player.setLevel(0);
-				player.getInventory().setHelmet(null);
-				player.getInventory().setChestplate(null);
-				player.getInventory().setLeggings(null);
-				player.getInventory().setBoots(null);
-				player.getInventory().clear();
-				
-				Scoreboard.setScoreboard(player);
-			}
+			zabij(player);
 			return true;
 		} else {
-			if(player.getLocation().getWorld().getName().equalsIgnoreCase("Spawn")) {
-				player.sendMessage(ChatColor.RED + "Nie mozesz sie zabic na spawnie!");
-				return true;
-			}
-			player.sendMessage(ChatColor.GOLD + "Teleportacja...");
-			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "warp Spawn " + sender.getName());
-			
-			player.setExp(0);
-			player.setFoodLevel(20);
-			player.setHealth(10.0);
-			player.setLevel(0);
-			player.getInventory().setHelmet(null);
-			player.getInventory().setChestplate(null);
-			player.getInventory().setLeggings(null);
-			player.getInventory().setBoots(null);
-			player.getInventory().clear();
-			
-			Scoreboard.setScoreboard(player);
-			
+			zabij(player);
 			for(Player op : Bukkit.getOnlinePlayers()) {
 				if(op.isOp()) {
 					op.sendMessage(ChatColor.GRAY + "Plugin DyrtCraftXP nie jest dostepny! Teleportacja gracza " + player.getName() + "...");
 				}
 			}
+			return true;
 		}
-		return true;
+	}
+	
+	protected void zabij(Player player) {
+		if(player.getLocation().getWorld().getName().equalsIgnoreCase("Spawn")) {
+			player.sendMessage(ChatColor.RED + "Nie mozesz sie zabic na terenie spawniu!");
+			return;
+		}
+		/*int xp1 = XP.getXp(player.getName());
+		int xp2 = xp1 / 2;
+		XP.delXp(player, xp2, "Powrót na spawn serwera MineZ");*/
+		player.sendMessage(ChatColor.GOLD + "Teleportacja...");
+		Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "warp Spawn " + player.getName());
+		
+		player.setExp(0);
+		player.setFoodLevel(20);
+		player.setHealth(20.0);
+		player.setLevel(0);
+		player.getInventory().setHelmet(null);
+		player.getInventory().setChestplate(null);
+		player.getInventory().setLeggings(null);
+		player.getInventory().setBoots(null);
+		player.getInventory().clear();
+		
+		Scoreboard.setScoreboard(player);
+		return;
 	}
 	
 }

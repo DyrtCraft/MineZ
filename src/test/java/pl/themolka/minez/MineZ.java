@@ -29,16 +29,16 @@ public class MineZ extends JavaPlugin {
 	
 	public int configTokenV1 = 414735131;
 	private String authors = "TheMolkaPL";
-	private String version = "Development Build 028";
+	private String version = "Development Build 029";
 	
 	@Override
 	public void onDisable() {
-		API.log("Wylaczanie MineZ wersja " + API.getPlugin().getVersion() + " by " + API.getPlugin().getAuthors() + "...");
-		API.log("Zapisywanie pliku config.yml...");
+		System.out.println("Wylaczanie MineZ wersja " + API.getPlugin().getVersion() + " by " + API.getPlugin().getAuthors() + "...");
+		System.out.println("Zapisywanie pliku config.yml...");
 		saveConfig();
-		API.log("Pomyslnie zapisano plik config.yml!");
-		API.log("");
-		API.log("Pomyslnie wylaczono plugin MineZ, zyczymy milego dnia!");
+		System.out.println("Pomyslnie zapisano plik config.yml!");
+		System.out.println("");
+		System.out.println("Pomyslnie wylaczono plugin MineZ, zyczymy milego dnia!");
 		getPluginLoader().disablePlugin(this);
 	}
 	

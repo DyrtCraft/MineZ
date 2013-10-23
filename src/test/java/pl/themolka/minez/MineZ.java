@@ -29,7 +29,7 @@ public class MineZ extends JavaPlugin {
 	
 	public int configTokenV1 = 414735131;
 	private String authors = "TheMolkaPL";
-	private String version = "Development Build 029";
+	private String version = "Development Build 030";
 	
 	@Override
 	public void onDisable() {

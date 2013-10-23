@@ -28,7 +28,7 @@ public class Scoreboard {
 		if(API.isDyrtCraftXPEnabled()) {
 			try {
 				// Jezeli plugin DyrtCraftXP jest wlaczony
-				setLocalScoreboard(player);
+				setLocalScoreboardXP(player);
 			} catch(Exception ex) {
 				setLocalScoreboard(player);
 			}
@@ -54,9 +54,10 @@ public class Scoreboard {
 		xp.setScore(ilosc_xp);
 		
 		// Mapa
+		int ilosc_graczy = player.getWorld().getPlayers().size();
 		String world_name = player.getWorld().getName();
 		Score mapa = obj.getScore(Bukkit.getOfflinePlayer("§6Mapa: " + ChatColor.RED + world_name));
-		mapa.setScore(-1);
+		mapa.setScore(ilosc_graczy);
 		
 		/*
 		 *  TODO: Wiecej info w scoreboard
@@ -76,9 +77,10 @@ public class Scoreboard {
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 		
 		// Mapa
+		int ilosc_graczy = player.getWorld().getPlayers().size();
 		String world_name = player.getWorld().getName();
 		Score mapa = obj.getScore(Bukkit.getOfflinePlayer("§6Mapa: " + ChatColor.RED + world_name));
-		mapa.setScore(-1);
+		mapa.setScore(ilosc_graczy);
 		
 		/*
 		 *  TODO: Wiecej info w scoreboard

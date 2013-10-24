@@ -351,6 +351,11 @@ public class API extends MineZ {
 		/*
 		 * TODO: Randomowa teleportacja
 		 */
+		if(world.equalsIgnoreCase("Spawn")) {
+			player.sendMessage(ChatColor.RED + "Mapa o nazwie \"" + world + "\" nie zostala odnaleziona! Spróbuj jeszcze raz!");
+			player.sendMessage(ChatColor.RED + "Dostepne obecnie mapy to: " + API.mapy(ChatColor.RED));
+			return;
+		}
 		/*World swiat = null;
 		int x = (Integer) null;
 		int y = (Integer) null;

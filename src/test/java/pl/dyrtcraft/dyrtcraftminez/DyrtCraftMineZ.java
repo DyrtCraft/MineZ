@@ -7,7 +7,7 @@ public class DyrtCraftMineZ {
 	}
 	
 	public static String getVersion() {
-		return "Snapshot 1.0.1";
+		return "Snapshot 1.0.3";
 	}
 	
 }

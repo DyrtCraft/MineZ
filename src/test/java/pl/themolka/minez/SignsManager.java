@@ -69,16 +69,14 @@ public class SignsManager implements Listener {
 						if(s.getLine(2).equalsIgnoreCase(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Alfa")) {
 							API.spawnPlayer(e.getPlayer(), alfa);
 							return;
-						} else {
-							if(s.getLine(2).equalsIgnoreCase(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Alfa")) {
-								API.spawnPlayer(e.getPlayer(), beta);
-								return;
-							} else {
-								if(s.getLine(2).equalsIgnoreCase(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Alfa")) {
-									API.spawnPlayer(e.getPlayer(), gamma);
-									return;
-								}
-							}
+						}
+						if(s.getLine(2).equalsIgnoreCase(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Beta")) {
+							API.spawnPlayer(e.getPlayer(), beta);
+							return;
+						}
+						if(s.getLine(2).equalsIgnoreCase(ChatColor.DARK_RED + "" + ChatColor.BOLD + "Gamma")) {
+							API.spawnPlayer(e.getPlayer(), gamma);
+							return;
 						}
 					}
 				}

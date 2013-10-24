@@ -1,5 +1,6 @@
 package pl.dyrtcraft.dyrtcraftminez.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -8,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import pl.themolka.minez.API;
 import pl.themolka.minez.MineZ;
+import pl.themolka.minez.Scoreboard;
 
 public class DolaczCommand implements CommandExecutor {
 
@@ -30,7 +32,23 @@ public class DolaczCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.GRAY + "/dolacz <nazwa mapy>");
 			return true;
 		}
-		if(!(player.getLocation().getWorld().getName().equalsIgnoreCase("Spawn"))){
+		if(!(player.getLocation().getWorld().getName().equalsIgnoreCase("Spawn"))) {
+			if(sender.isOp()) {
+				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "warp Spawn " + player.getName());
+				player.setExp(0);
+				player.setFoodLevel(20);
+				player.setHealth(20.0);
+				player.setLevel(0);
+				player.getInventory().setHelmet(null);
+				player.getInventory().setChestplate(null);
+				player.getInventory().setLeggings(null);
+				player.getInventory().setBoots(null);
+				player.getInventory().clear();
+				Scoreboard.setScoreboard(player);
+				
+				API.spawnPlayer(player, args[0]);
+				return true;
+			}
 			player.sendMessage(ChatColor.RED + "Nie mozesz rozpoczac nowej rozgrywki, jezeli obecnie jestes w grze!");
 			return true;
 		}

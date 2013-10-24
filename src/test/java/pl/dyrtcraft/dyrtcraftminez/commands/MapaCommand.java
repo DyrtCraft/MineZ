@@ -26,14 +26,15 @@ public class MapaCommand implements CommandExecutor {
 		}
 		Player player = (Player) sender;
 		if(!(player.getLocation().getWorld().getName().equalsIgnoreCase("Spawn"))) {
+			int liczba = player.getLocation().getWorld().getPlayers().size();
 			sender.sendMessage(ChatColor.GRAY + "Mapa na której obecnie sie znajdujesz to \"" + ChatColor.GOLD + player.getLocation().getWorld().getName() + ChatColor.GRAY + "\".");
+			sender.sendMessage(ChatColor.GRAY + "Obecna ilosc graczy na tej mapie to " + ChatColor.GOLD + liczba + ChatColor.GRAY + ".");
 			return true;
 		}
-		sender.sendMessage(ChatColor.GRAY + "Znajdujesz sie na spawnie serwera!");
+		sender.sendMessage(ChatColor.RED + "Znajdujesz sie na spawnie serwera!");
 		if(API.isPoradyEnabled(player)) {
 			sender.sendMessage(ChatColor.GOLD + "========== Porada ==========");
 			sender.sendMessage(ChatColor.GRAY + "Aby rozpoczac rozgrywke uzyj komendy /dolacz <nazwa mapy>");
-			
 		}
 		return true;
 	}

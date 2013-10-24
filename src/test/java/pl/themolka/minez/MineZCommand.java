@@ -271,7 +271,7 @@ public class MineZCommand implements CommandExecutor {
 	
 	protected void zabij(Player player) {
 		if(player.getLocation().getWorld().getName().equalsIgnoreCase("Spawn")) {
-			player.sendMessage(ChatColor.RED + "Nie mozesz sie zabic na terenie spawniu!");
+			player.sendMessage(ChatColor.RED + "Nie mozesz sie zabic na terenie spawnu!");
 			return;
 		}
 		/*int xp1 = XP.getXp(player.getName());

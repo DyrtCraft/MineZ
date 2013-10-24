@@ -1,5 +1,5 @@
 name: MineZ
-version: Development Build 030 (Implementing DyrtCraftMineZ version Snapshot 1.0.2)
+version: Development Build 031 (Implementing DyrtCraftMineZ version Snapshot 1.0.3)
 website: http://dyrtcraft.pl/
 author: TheMolkaPL
 load: STARTUP
@@ -18,15 +18,15 @@ commands:
 # DyrtCraftMineZ
     dolacz:
         description: Rozpocznij rozgrywke na MineZ
-        aliases: [start, join, wejdz, graj, grac]
+        aliases: [start, join, wejdz, graj, grac, play, gra]
         usage: /dolacz <nazwa mapy>
     mapa:
         description: Nazwa mapy na której sie obecnie znajdujesz
-        aliases: [map]
+        aliases: [map, lokacja, lokalizacija, loc, location]
         usage: /mapa
     regulamin:
         description: Regulamin serwera MineZ
-        aliases: [reg, rules]
+        aliases: [reg, rules, rule, zasady]
         usage: /regulamin
     sklep:
         description: Sklep dla rangi VIP
@@ -35,9 +35,9 @@ commands:
         permission: minez.vip
     vip:
         description: Informacje o randze VIP
-        aliases: [rangi, ranga, rank, ranks, svip]
+        aliases: [rangi, ranga, rank, ranks, svip, premium, donate]
         usage: /vip
     zabij:
         description: Zabij sie i wróc na spawn
-        aliases: [kill, dead, death, suicide]
+        aliases: [kill, dead, death, suicide, smierc, koniec]
         usage: /zabij

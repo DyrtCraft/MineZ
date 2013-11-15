@@ -1,5 +1,5 @@
 name: MineZ
-version: Development Build 031 (Implementing DyrtCraftMineZ version Snapshot 1.0.3)
+version: Development Build 032 (Implementing DyrtCraftMineZ version Snapshot 1.0.3)
 website: http://dyrtcraft.pl/
 author: TheMolkaPL
 load: STARTUP
@@ -7,6 +7,7 @@ softdepend: [DyrtCraftXP]
 prefix: MineZ
 description: Plugin stworzony specjalnie dla DyrtCraft Network!
 
+# WAZNE! NIE DOTYKAC!
 main: pl.themolka.minez.MineZ
 # WAZNE! NIE DOTYKAC!
 
@@ -27,7 +28,7 @@ commands:
     regulamin:
         description: Regulamin serwera MineZ
         aliases: [reg, rules, rule, zasady]
-        usage: /regulamin
+        usage: /regulamin [staff]
     sklep:
         description: Sklep dla rangi VIP
         aliases: [shop, sk]

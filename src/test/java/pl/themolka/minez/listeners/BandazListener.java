@@ -28,6 +28,7 @@ public class BandazListener implements Listener {
 		plugin = mineZ;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		try {

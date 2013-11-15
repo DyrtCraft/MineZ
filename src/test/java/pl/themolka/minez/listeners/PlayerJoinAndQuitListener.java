@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import pl.DyrtCraft.DyrtCraftXP.DyrtCraftPlugin;
+import pl.DyrtCraft.DyrtCraftXP.api.DyrtCraftPlugin;
 
 import pl.themolka.minez.API;
 import pl.themolka.minez.MineZ;

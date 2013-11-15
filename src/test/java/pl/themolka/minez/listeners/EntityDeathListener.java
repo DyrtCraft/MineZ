@@ -84,6 +84,7 @@ public class EntityDeathListener implements Listener {
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent e) {
 		Player dedacz = (Player) e.getEntity();

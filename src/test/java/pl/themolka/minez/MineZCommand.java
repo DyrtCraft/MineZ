@@ -7,7 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import pl.DyrtCraft.DyrtCraftXP.DyrtCraftPlugin;
+import pl.DyrtCraft.DyrtCraftXP.api.DyrtCraftPlugin;
 
 import pl.dyrtcraft.dyrtcraftminez.DyrtCraftMineZ;
 import pl.themolka.minez.listeners.PlayerJoinAndQuitListener;

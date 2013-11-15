@@ -54,10 +54,15 @@ public class Scoreboard {
 		xp.setScore(ilosc_xp);
 		
 		// Mapa
-		int ilosc_graczy = player.getWorld().getPlayers().size();
 		String world_name = player.getWorld().getName();
 		Score mapa = obj.getScore(Bukkit.getOfflinePlayer("§6Mapa: " + ChatColor.RED + world_name));
-		mapa.setScore(ilosc_graczy);
+		mapa.setScore(0);
+		
+		// Gracze
+		int cur = player.getWorld().getPlayers().size();
+		int max = API.getMaxPlayers(player.getWorld().getName());
+		Score players = obj.getScore(Bukkit.getOfflinePlayer("§6Gracze na mapie: " + ChatColor.GOLD + cur + "/"));
+		players.setScore(max);
 		
 		/*
 		 *  TODO: Wiecej info w scoreboard

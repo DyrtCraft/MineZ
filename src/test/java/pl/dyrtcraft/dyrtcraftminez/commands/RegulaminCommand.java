@@ -17,10 +17,32 @@ public class RegulaminCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if(!(args.length==0)) {}
-		sender.sendMessage(ChatColor.GOLD + "========== Regulamin ==========");
-		sender.sendMessage(ChatColor.YELLOW + "Wkrótce! ;D");
-		return true;
+		if(args.length == 0) {
+			sender.sendMessage(rules());
+			return true;
+		}
+		if(args.length == 2) {
+			if(args[0].equalsIgnoreCase("staff")) {
+				sender.sendMessage(staffRules());
+				return true;
+			} else {
+				sender.sendMessage(rules());
+				return true;
+			}
+		} else {
+			sender.sendMessage(rules());
+			return true;
+		}
+	}
+	
+	private String rules() {
+		String a = ChatColor.YELLOW + "Wkrótce! ;D";
+		return a;
+	}
+	
+	private String staffRules() {
+		String a = ChatColor.YELLOW + "Wkrótce! ;D";
+		return a;
 	}
 
 }

@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
+import pl.DyrtCraft.DyrtCraftXP.CraftDyrt;
 
 import pl.themolka.minez.listeners.BandazListener;
 import pl.themolka.minez.listeners.CreatureSpawnListener;
@@ -56,7 +56,17 @@ public class MineZ extends JavaPlugin {
 		getCommand("vip").setExecutor(new pl.dyrtcraft.dyrtcraftminez.commands.VipCommand(this));
 		getCommand("zabij").setExecutor(new pl.dyrtcraft.dyrtcraftminez.commands.ZabijCommand(this));
 		
+		// Properties
+		File propFile = new File(getDataFolder(), "messages.properties");
+		if(!propFile.exists()) {
+			//PropertiesFile.write();
+			try {
+				propFile.createNewFile();
+			} catch (IOException e) {}
+		}
+		
 		// Rejestracja listenerow
+		getLogger().info("Rejestrowanie listenerów...");
 		Bukkit.getPluginManager().registerEvents(new Sklep(this), this);
 		Bukkit.getPluginManager().registerEvents(new BandazListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new CreatureSpawnListener(this), this);
@@ -67,7 +77,7 @@ public class MineZ extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new WodaListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new SignsManager(this), this);
-		API.log("Zarejestrowano listenery");
+		API.log("Zarejestrowano listenery!");
 		
 		// Rejestracja listenerów DyrtCraftMineZ
 		Bukkit.getPluginManager().registerEvents(new pl.dyrtcraft.dyrtcraftminez.Listeners(this), this);
@@ -89,12 +99,13 @@ public class MineZ extends JavaPlugin {
 			getLogger().info("Plik conifg.yml zostal podmieniony!");
 			
 		}
+		
 		// Plugin DyrtCraftXP
 		if(!(API.isDyrtCraftXPEnabled())) {
 			getLogger().warning("Do pelnego dzialania tego pluginu potrzeby jest plugin DyrtCraftXP!");
 			return;
 		} else {
-			API.log("Wykryto plugin DyrtCraftXP wersja " + DyrtCraftXP.getInstance().getVersion() + " by " + DyrtCraftXP.getInstance().getAuthors());
+			API.log("Wykryto plugin " + CraftDyrt.getPluginFullName());
 			API.log("Wspolpraca z pluginem DyrtCraft...");
 		}
 	}

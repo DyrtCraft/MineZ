@@ -23,6 +23,7 @@ public class WodaListener implements Listener {
 		plugin = mineZ;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		try {

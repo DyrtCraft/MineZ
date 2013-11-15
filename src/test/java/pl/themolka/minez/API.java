@@ -12,8 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import pl.DyrtCraft.DyrtCraftXP.DyrtCraftPlugin;
 import pl.DyrtCraft.DyrtCraftXP.DyrtCraftXP;
+import pl.DyrtCraft.DyrtCraftXP.api.DyrtCraftPlugin;
 
 /**
  * @author TheMolkaPL
@@ -112,6 +112,23 @@ public class API extends MineZ {
 		return plugin;
 	}
 	
+	public static int getMaxPlayers(String world) {
+		if(world.equalsIgnoreCase("Alfa")) {
+			return 20;
+		}
+		if(world.equalsIgnoreCase("Beta")) {
+			return 20;
+		}
+		if(world.equalsIgnoreCase("Gamma")) {
+			return 20;
+		}
+		if(world.equalsIgnoreCase("Delta")) {
+			return 50;
+		} else {
+			return 0;
+		}
+	}
+	
 	/**
 	 * @author TheMolkaPL
 	 * @since Development Build 012
@@ -199,10 +216,11 @@ public class API extends MineZ {
 	public static boolean isPoradyEnabled(Player player) { return true; }
 	
 	public static String mapy(ChatColor color) {
-		String a = ChatColor.GOLD+"Alfa"+color+", "+ChatColor.GOLD+"Beta"+color+" oraz "+ChatColor.GOLD+"Gamma"+color+".";
+		String a = ChatColor.GOLD+"Alfa"+color+", "+ChatColor.GOLD+"Beta"+color+", "+ChatColor.GOLD+"Gamma"+color+" oraz "+ChatColor.GOLD+"Delta"+color+".";
 		return a;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void sendStarterKit(Player player) {
 		API.debug("public static void sendStarterKit(Player)");
 		
@@ -265,6 +283,7 @@ public class API extends MineZ {
 		player.getInventory().setBoots(boots);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void sendStarterVIPKit(Player player) {
 		API.debug("public static void sendStarterVIPKit(Player)");
 		

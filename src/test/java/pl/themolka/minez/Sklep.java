@@ -29,18 +29,19 @@ public class Sklep implements Listener {
 	
 	MineZ plugin;
 	
+	@SuppressWarnings("deprecation")
 	public Sklep(MineZ mineZ) {
 		plugin = mineZ;
 		
 		inv = Bukkit.createInventory(null, 36, ChatColor.RED + "" + ChatColor.BOLD + "Sklep MineZ");
 		
-		drewniany_miecz = cretateItem(Material.WOOD_SWORD, "Drewniany Miecz", "Najlepszy na poczatek", 10);
-		kamienny_miecz = cretateItem(Material.STONE_SWORD, "Kamienny miecz", "Podstawowa bron", 20);
-		butelka = cretateItem(Material.getMaterial(373), "Woda", "Napojenie", 60);
-		bandaz = cretateItem(Material.PAPER, "Bandaz", "Szybkie uleczanie", 70);
-		zegarek = cretateItem(Material.getMaterial(347), "Zegarek", "Sprawdz czas!", 50);
-		melon = cretateItem(Material.MELON, "Melon", "Mala przegryzka", 40);
-		chleb = cretateItem(Material.BREAD, "Chleb", "Jedzenie", 55);
+		drewniany_miecz = cretateItem(Material.WOOD_SWORD, PropertiesFile.get("wooden-sword"), "Najlepszy na poczatek", 10);
+		kamienny_miecz = cretateItem(Material.STONE_SWORD, PropertiesFile.get("stone-sword"), "Podstawowa bron", 20);
+		butelka = cretateItem(Material.getMaterial(373), PropertiesFile.get("water"), "Napojenie", 60);
+		bandaz = cretateItem(Material.PAPER, PropertiesFile.get("bandage"), "Szybkie uleczanie", 70);
+		zegarek = cretateItem(Material.getMaterial(347), PropertiesFile.get("clock"), "Sprawdz czas!", 50);
+		melon = cretateItem(Material.MELON, PropertiesFile.get("melon"), "Mala przegryzka", 40);
+		chleb = cretateItem(Material.BREAD, PropertiesFile.get("bread"), "Jedzenie", 55);
 		
 		skoraHelmet = cretateItem(Material.LEATHER_HELMET, "Skorzany helm", "Zbroja", 15);
 		skoraChestplate = cretateItem(Material.LEATHER_CHESTPLATE, "Skorzany napiersnik", "Zbroja", 15);
@@ -139,6 +140,7 @@ public class Sklep implements Listener {
 		} catch(NullPointerException ex) {}
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerClickInventory(InventoryClickEvent e) throws NoSuchMethodException {
 		try {
